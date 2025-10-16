@@ -1,0 +1,14 @@
+lat min: 41.581095, lat max: 42.797837
+long min: -71.848488, long max: -70.276583
+lat range: 1.2167420000000035
+long range: 1.571905000000001
+number of stops: 10280
+
+can scale 500x, canvas for now is 1400x800
+
+route types:
+    - 0: mattapan trolley + green b-d
+    - 1: red, orange, blue trains
+    - 2: commuter + foxboro
+    - 3: bus
+    - 4: ferrys
