@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "attributes": {
+        "polyline": "o|maGvwqpL?v@Et@AXG`Aq@zBGTGRGTsChJ??CDe@nA]f@qAvAo@XcG`@GBs@f@m@h@aBhBeC|G??aCzGIZEZaCd^AR?Z@`@@VDPH\\Vl@pA~CL\\NT\\VVT"
+      },
+      "id": "7460033",
+      "links": {
+        "self": "/shapes/7460033"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "w~naGh~tpLw@q@W]aBaEMYEQEMCOAM?U?U?WpByZPqBH]Ng@zBgG??fC_Hp@u@RY\\[pAaAHCbGc@r@]h@o@d@e@b@m@`@eAFS??lCiJFUt@yBNm@Fq@Au@?o@?cBCyA@mATBFBBF@LAd@ANCJOd@I`@?j@"
+      },
+      "id": "7460032",
+      "links": {
+        "self": "/shapes/7460032"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "o|maGvwqpL?v@OpCq@zBGTGRGTsChJ??CDe@nA]f@qAvAo@XcG`@GBs@f@m@h@aBhBeC|G??aCzGIZEZaCd^AR?Z@`@@VDPH\\Vl@pA~CL\\NT\\VVT"
+      },
+      "id": "7460034",
+      "links": {
+        "self": "/shapes/7460034"
+      },
+      "type": "shape"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

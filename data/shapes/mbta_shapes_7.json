@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "attributes": {
+        "polyline": "aglaGzgppL?MhA?AIAuE?kB???YAgBEsHlBAv@ARA??nCExCA??P?DxKFxK?\\??D|JD`LsAB??wA@eDBcDB]???yDBcCBwGHo@F]Hc@Lq@\\SNUPe@l@eBxCmA`Ck@~@]X[`@eAlBS^??aD~FqBrD??oAzB]p@GNqBnEq@~Ao@vA??}BlF_@`AgBbF??aAjCmBlFm@bCmCrH??GRmDpJm@dBwCnHYbA??M`@c@xBSp@c@jAO`@Mb@mA_DoALoBRi@H??sC`@JzCXDTLp@t@tC~C"
+      },
+      "id": "070184",
+      "links": {
+        "self": "/shapes/070184"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "{hoaGvrupLZZlAyBd@o@HMNUF]TcBLc@Na@b@kARq@b@yBf@eBPa@??dCmGl@eBlDqJx@aC??zAeEdAyBpByF????vCqI`@aABInDkI^}@??dCyFLYrEgI??@CxByDt@sA??HQjAwB^aAj@_AlAaCdByCd@m@TQROp@]b@M\\In@G~CE??vBCbCCdEC??P?tCC??L?dDCfAA??bBCEaLE{KAg@??C{I??AUEyK?y@??GuI???WkDBcDB_@@??eC@@`D@hDBbA???XDrH?nA??@V?dC@tE@H?h@"
+      },
+      "id": "070171",
+      "links": {
+        "self": "/shapes/070171"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "wdlaGvhppL@~@@vB@hFFbL]???yDBcCBwGHo@F]Hc@Lq@\\SNUPe@l@eBxCmA`Ck@~@]X[`@eAlBS^??aD~FqBrD??oAzB]p@GNqBnEq@~Ao@vA??}BlF_@`AgBbF??aAjCmBlFm@bCmCrH??GRmDpJm@dBwCnHYbA??M`@c@xBSp@c@jAO`@Mb@mA_DoALoBRi@H"
+      },
+      "id": "070185",
+      "links": {
+        "self": "/shapes/070185"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "kloaGneupLsC`@JzCXDTLp@t@tC~C??ZZlAyBd@o@HMNUF]TcBLc@Na@b@kARq@b@yBf@eBPa@??dCmGl@eBlDqJx@aC??zAeEdAyBpByF????vCqI`@aABInDkI^}@??dCyFLYrEgI??@CxByDt@sA??HQjAwB^aAj@_AlAaCdByCd@m@TQROp@]b@M\\In@G~CE??vBCbCCdEC??P?tCC??L?dDCfAA??bBCEaLE{KAg@??C{I??AUEyK?y@??GuI???WkDBcDB_@@??eC@@`D@hDBbA???XDrH?nA??@V?dC@tE@H?h@"
+      },
+      "id": "070186",
+      "links": {
+        "self": "/shapes/070186"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "{hoaGvrupLZZlAyBd@o@HMNUF]TcBLc@Na@b@kARq@b@yBf@eBPa@??dCmGl@eBlDqJx@aC??zAeEdAyBpByF????vCqI`@aABInDkI^}@??dCyFLYrEgI??@CxByDt@sA??HQjAwB^aAj@_AlAaCdByCd@m@TQROp@]b@M\\In@G~CE??vBCbCCdEC??P?GcLAiFk@@Q?Q?@uE"
+      },
+      "id": "070170",
+      "links": {
+        "self": "/shapes/070170"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "aglaGzgppL?MhA?AIAuE?kB???YAgBEsHlBAv@ARA??nCExCA??P?DxKFxK?\\??D|JD`LsAB??wA@eDBcDB]???yDBcCBwGHo@F]Hc@Lq@\\SNUPe@l@eBxCmA`Ck@~@]X[`@eAlBS^??aD~FqBrD??oAzB]p@GNqBnEq@~Ao@vA??}BlF_@`AgBbF??aAjCmBlFm@bCmCrH??GRmDpJm@dBwCnHYbA"
+      },
+      "id": "070176",
+      "links": {
+        "self": "/shapes/070176"
+      },
+      "type": "shape"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "attributes": {
+        "polyline": "u}bbGf_`pLn@k@??RIRK??XG??\\A\\?feP~d@rJ[rJoBfxAmw@rJw@tJv@~HfDtHlF~EfJ~Pl|@~@vILdHQvGum@pbHu@fGuF~McQre@uCbI{Wds@]p@oHfN}KtSmUpy@aAfIcAfIFnD`AjE"
+      },
+      "id": "LynnToLongWharfNorth-F",
+      "links": {
+        "self": "/shapes/LynnToLongWharfNorth-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "aspaGhxspLaAkEGoDbAgI`AgIlUqy@|KuSnHgN\\q@zWes@tCcIbQse@tF_Nt@gGtm@qbHPwGMeH_AwI_Qm|@_FgJuHmF_IgDuJw@sJv@gxAlw@sJnBsJZgeP_e@]?]@??YF??SJSH??o@j@"
+      },
+      "id": "LongWharfNorthToLynn-F",
+      "links": {
+        "self": "/shapes/LongWharfNorthToLynn-F"
+      },
+      "type": "shape"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

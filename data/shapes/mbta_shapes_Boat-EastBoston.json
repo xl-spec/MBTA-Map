@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "attributes": {
+        "polyline": "sqqaGhkrpL@RHLfMpDfEdFrBxGnDdYFTf@N"
+      },
+      "id": "LewisWharfToLongWharf-F",
+      "links": {
+        "self": "/shapes/LewisWharfToLongWharf-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "crpaGh}spLg@OGWoDgYsBuGiEeFeMqDIOAQ"
+      },
+      "id": "LongWharfToLewisWharf-F",
+      "links": {
+        "self": "/shapes/LongWharfToLewisWharf-F"
+      },
+      "type": "shape"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

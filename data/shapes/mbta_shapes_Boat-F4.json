@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "attributes": {
+        "polyline": "q}raGjntpLpCaChGqFzP_QlBuBdAaApAcA`Bu@bBi@lB]|BQbBCzCHbDV|JfBb@Rd@^Rt@r@jDNtEThCTdC"
+      },
+      "id": "b0018",
+      "links": {
+        "self": "/shapes/b0018"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "qipaGl`tpLUeCUiCOuEs@kDSu@e@_@c@S}JgBcDW{CIcBB}BPmB\\cBh@aBt@qAbAeA`AmBtB{P~PiGpFqC`C"
+      },
+      "id": "b0017",
+      "links": {
+        "self": "/shapes/b0017"
+      },
+      "type": "shape"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

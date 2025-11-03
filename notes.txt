@@ -6,9 +6,15 @@ number of stops: 10280
 
 can scale 500x, canvas for now is 1400x800
 
+  // for (let stop of list_of_stops) {
+  //   circle((stop.latitude - latMin) * 500, (stop.longitude - longMin) * 500, 1);
+  // }
+
 route types:
     - 0: mattapan trolley + green b-d
     - 1: red, orange, blue trains
     - 2: commuter + foxboro
     - 3: bus
     - 4: ferrys
+
+

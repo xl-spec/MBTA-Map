@@ -1,73 +1,56 @@
-let list_of_stops = [];
-let list_of_routes = [];
-let latMin = Infinity;
-let latMax = -Infinity;
-let longMin = Infinity;
-let longMax = -Infinity;
-
-function loadStops() {
-  loadJSON("data/mbta_stops.json", (data) => {
-    for (let stop of data.data) {
-      let attr = stop.attributes;
-      let lat = attr.latitude;
-      let lon = attr.longitude;
-      let name = attr.name;
-
-      list_of_stops.push(new Stops(name, lat, lon));
-
-      if (lat != null && lon != null) {
-        // avoiding zero min/max
-        latMin = Math.min(latMin, lat);
-        latMax = Math.max(latMax, lat);
-        longMin = Math.min(longMin, lon);
-        longMax = Math.max(longMax, lon);
-      }
-    }
-  });
-}
-
-function loadRoutes() {
-  loadJSON("data/mbta_routes.json", (data) => {
-    for (let route of data.data) {
-      let attr = route.attributes;
-      let hexcolor = attr.color;
-      let desc = attr.desc;
-      let dir = attr.direction_names;
-      let type = attr.type;
-      let id = route.id;
-
-      list_of_routes.push(new Routes(id, hexcolor, desc, dir, type));
-    }
-  });
+function preload() {
+  loader = new Loader();
+  loader.preloadData();
 }
 
 function setup() {
-  createCanvas(1400, 800);
-  loadStops();
+  createCanvas(800, 800);
+
+  mouseHandler = new MouseHandler();
+  keyHandler = new KeyHandler();
+  loader.loadStops(loader.stopsData);
+  loader.loadRoutes(loader.routesData);
+  loader.loadShapes();
 }
 
 function draw() {
   background(220);
-  for (let stop of list_of_stops) {
-    circle((stop.latitude - latMin) * 500, (stop.longitude - longMin) * 500, 1);
+  mouseHandler.applyTranslation();
+
+  for (const route of loader.list_of_routes) {
+    if (!route.shape || route.shape.length === 0) continue;
+    stroke(`#${route.hexcolor || "999999"}`);
+    noFill();
+
+    for (const coords of route.shape) {
+      beginShape();
+      for (const [lat, lon] of coords) {
+        let x = map(lon, loader.longMin, loader.longMax, 50, width - 50);
+        let y = map(lat, loader.latMax, loader.latMin, 50, height - 50);
+        vertex(x, y);
+      }
+      endShape();
+    }
   }
+
+  fill(0);
+  noStroke();
+
+  for (const stop of loader.list_of_stops) {
+    const x = map(
+      stop.longitude,
+      loader.longMin,
+      loader.longMax,
+      50,
+      width - 50
+    );
+    const y = map(stop.latitude, loader.latMax, loader.latMin, 50, height - 50);
+    circle(x, y, 0.2);
+  }
+
+  handleZoom();
 }
 
-class Stops {
-  letructor(name, latitude, longitude, type) {
-    this.name = name;
-    this.latitude = latitude; // some lat/long has nulls
-    this.longitude = longitude;
-    this.type = type; // prob a list
-  }
-}
-
-class Routes {
-  letructor(id, hexcolor, description, direction_names, type) {
-    this.id = id; // green, blue, b, silver, etc
-    this.hexcolor = hexcolor;
-    this.description = description; // type of vehicle
-    this.direction_names = direction_names; // list of either out/in, south/west, north/east
-    this.type = type; // 0 - 4, more in notes.txt
-  }
+function handleZoom() {
+  keyHandler.setZoom(keyHandler.getZoom());
 }

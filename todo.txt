@@ -1,0 +1,4 @@
+- fix scale
+- create loader class (done)
+- possibly speed up loadShapes
+- zoom in/out

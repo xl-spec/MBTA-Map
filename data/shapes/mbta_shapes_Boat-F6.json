@@ -1,0 +1,97 @@
+{
+  "data": [
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|@bFV|FK|FyNpcBy@fGuF~McQre@uCbI{Wds@]p@sAjBkA|@cDzBwBl@{CLkDa@wDiBuEkDiBcCi@oAKkB??JpBpDvv@|@leAB`A??PoAV]`@@nAj@|AA`FkBp@_Ab@{C?uQj@gD|AeDhBk@jACr@Xp@z@rApE?@???Ay@_Gy@oDoAoEyA{F}@aHe@gGYoHIyGdAcGdJyP\\q@zWes@tCcIbQse@tF_Nx@gGxNqcBJ}FW}F}@cFshAycA}B{@qBFab@~KmBU{AeAk]e`@QQOY"
+      },
+      "id": "canonical-WinthropToLoganToCentralWharfToFanPierToWinthrop",
+      "links": {
+        "self": "/shapes/canonical-WinthropToLoganToCentralWharfToFanPierToWinthrop"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|f@xh@rrBjeD~VxThZvRxVtJpRhE??qRiEyVuJiZwR_WyTk|AoeCuEgEyD}BkEBmFr@yD~AyClCiWn`@}Vrg@cQre@uCbI{Wds@]p@eJxPeAbGHxGXnHd@fGz@`HzAzFnAnEx@nDx@~F?@???AsAqEq@{@s@YkABiBj@}AdDk@fD?tQc@zCq@~@aFjB}A@oAk@a@AW\\QnA??CaA}@meAqDwv@KqB??r@~Nv@pCz^px@nAnEx@nDx@~F?@?A?@?Ay@_Gy@oDoAoEyA{F}@aHe@gGYoHIyGdAcGdJyP\\q@zWes@tCcIbQse@tF_Nx@gGxNqcBJ}FW}F}@cFshAycA}B{@qBFab@~KmBU{AeAk]e`@QQOY"
+      },
+      "id": "WinthropToQuincyToFanPierToCentralWharfToLoganToFanPierToWinthrop-F",
+      "links": {
+        "self": "/shapes/WinthropToQuincyToFanPierToCentralWharfToLoganToFanPierToWinthrop-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|@bFV|FK|FyNpcBy@fGuF~McQre@uCbI{Wds@]p@eJxPkUpsAIrAApAAxBHtHB`A??PoAV]`@@nAj@|AA`FkBp@_Ab@{C?uQj@gD|AeDhBk@jACr@Xp@z@rApE?@???A?@?Ay@_Gy@oDoAoE{^qx@w@qCs@_O??JjBh@nAhBbCtEjDvDhBjD`@zCMvBm@bD{BjA}@rAkB\\q@zWes@tCcIbQse@tF_Nx@gGxNqcBJ}FW}F}@cFshAycA}B{@qBFab@~KmBU{AeAk]e`@QQOY"
+      },
+      "id": "WinthropToCentralWharfToFanPierToLoganToWinthrop-F",
+      "links": {
+        "self": "/shapes/WinthropToCentralWharfToFanPierToLoganToWinthrop-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|@bFV|FK|FyNpcBy@fGuF~McQre@uCbI{Wds@]p@eJxPkUpsAIrAApAAxBHtHB`A??PoAV]`@@nAj@|AA`FkBp@_Ab@{C?uQj@gD|AeDhBk@jACr@Xp@z@rApE?@???A"
+      },
+      "id": "WinthropToCentralWharfToFanPier-F",
+      "links": {
+        "self": "/shapes/WinthropToCentralWharfToFanPier-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "{epaGptspL??PoAV]`@@nAj@|AA`FkBp@_Ab@{C?uQj@gD|AeDhBk@jACr@Xp@z@rApE?@???A?@?Ay@_Gy@oDoAoE{^qx@w@qCs@_O??JjBh@nAhBbCtEjDvDhBjD`@zCMvBm@bD{BjA}@rAkB\\q@zWes@tCcIbQse@tF_Nx@gGxNqcBJ}FW}F}@cFshAycA}B{@qBFab@~KmBU{AeAk]e`@QQOY"
+      },
+      "id": "CentralWharfToFanPierToLoganToWinthrop-F",
+      "links": {
+        "self": "/shapes/CentralWharfToFanPierToLoganToWinthrop-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|@bFV|FK|FyNpcBy@fGuF~McQre@uCbI{Wds@]p@sAjBkA|@cDzBwBl@{CLkDa@wDiBuEkDiBcCi@oAKkB??JpBpDvv@|@leAB`A??PoAV]`@@nAj@|AA`FkBp@_Ab@{C?uQj@gD|AeDhBk@jACr@Xp@z@rApE?@???Ay@_Gy@oDoAoEyA{F}@aHe@gGYoHIyGdAcGdJyP\\q@zWes@tCcIbQse@tF_Nx@gGxNqcBJ}FW}F}@cFshAycA}B{@qBFab@~KmBU{AeAk]e`@QQOY"
+      },
+      "id": "WinthropToLoganToCentralWharfToFanPierToWinthrop-F",
+      "links": {
+        "self": "/shapes/WinthropToLoganToCentralWharfToFanPierToWinthrop-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|@bFV|FK|FyNpcBy@fGuF~McQre@uCbI{Wds@]p@eJxPkUpsAIrAApAAxBHtHB`A??PoAV]`@@nAj@|AA`FkBp@_Ab@{C?uQj@gD|AeDhBk@jACr@Xp@z@rApE?@???A?@?Ay@_Gy@oDoAoE{^qx@w@qCs@_O??JjBh@nAhBbCtEjDvDhBjD`@zCMvBm@bD{BjA}@rAkB\\q@zWes@tCcIbQse@tF_Nx@gGxNqcBJ}FW}F}@cFshAycA}B{@qBFab@~KmBU{AeAk]e`@QQOY"
+      },
+      "id": "canonical-WinthropToCentralWharfToFanPierToLoganToWinthrop",
+      "links": {
+        "self": "/shapes/canonical-WinthropToCentralWharfToFanPierToLoganToWinthrop"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|f@xh@rrBjeD~VxThZvRxVtJpRhE??qRiEyVuJiZwR_WyTk|AoeCuEgEyD}BkEBmFr@yD~AyClCiWn`@}Vrg@cQre@uCbI{Wds@]p@eJxPeAbGHxGXnHd@fGz@`HzAzFnAnEx@nDx@~F?@???AsAqEq@{@s@YkABiBj@}AdDk@fD?tQc@zCq@~@aFjB}A@oAk@a@AW\\QnA??CaA}@meAqDwv@KqB??"
+      },
+      "id": "WinthropToQuincyToFanPierToCentralWharfToLogan-F",
+      "links": {
+        "self": "/shapes/WinthropToQuincyToFanPierToCentralWharfToLogan-F"
+      },
+      "type": "shape"
+    },
+    {
+      "attributes": {
+        "polyline": "svqaGfaepLNXPPj]d`@zAdAlBT`b@_LpBG|Bz@rhAxcA|f@xh@rrBjeD~VxThZvRxVtJpRhE"
+      },
+      "id": "WinthropToQuincy-F",
+      "links": {
+        "self": "/shapes/WinthropToQuincy-F"
+      },
+      "type": "shape"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
