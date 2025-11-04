@@ -1,4 +1,8 @@
-- fix scale
 - create loader class (done)
+- zoom in/out (done)
+- fix scale (done)
+
 - possibly speed up loadShapes
-- zoom in/out
+- make lines smaller?
+- button to get live api update
+- api live location drawn

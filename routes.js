@@ -6,5 +6,16 @@ class Routes {
     this.direction_names = direction_names; // list of either out/in, south/west, north/east
     this.type = type; // 0 - 4, more in notes.txt
     this.shape = [];
+    this.drawSize = 1;
   }
+
+  adjustHexColor() {
+    if (this.hexcolor == "FFC72C") {
+      this.hexcolor == "";
+    }
+  }
+
+  // getDrawSize() {
+  //   pass;
+  // }
 }
