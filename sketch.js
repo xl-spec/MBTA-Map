@@ -7,7 +7,8 @@ function preload() {
 
 function setup() {
   createCanvas(800, 800);
-
+  // createCanvas(2000, 1200);
+  collider = new Collider();
   inputHandler = new InputHandler();
   loader.loadStops(loader.stopsData);
   loader.loadRoutes(loader.routesData);
@@ -21,20 +22,20 @@ function draw() {
   inputHandler.applyTransform();
   inputHandler.applyKeyZoomAtMouse();
   ui.draw();
-  // scale(inputHandler.zoomNum);
+  collider.handleCollisions(inputHandler.mouseClicked(), loader.list_of_stops);
 
   for (const route of loader.list_of_routes) {
     if (!route.shape || route.shape.length === 0) continue;
     stroke(`#${route.hexcolor || "999999"}`);
     if (
-      route.hexcolor != "FFC72C" &&
+      route.hexcolor != "FFC72C" && // temp, no buses, ferries, and commuter
       route.hexcolor != "008EAA" &&
       route.hexcolor != "80276C"
     ) {
-      mymap.set(route.id, route.hexcolor);
+      // mymap.set(route.id, route.hexcolor);
       noFill();
 
-      for (const coords of route.shape) {
+      for (let coords of route.shape) {
         beginShape();
         for (const [lat, lon] of coords) {
           let x = map(lon, loader.longMin, loader.longMax, 50, width - 50);
@@ -43,26 +44,26 @@ function draw() {
         }
         endShape();
       }
-      console.log(mymap);
+      // console.log(mymap);
     }
   }
 
   fill(0);
   noStroke();
 
-  for (const stop of loader.list_of_stops) {
-    const x = map(
+  for (let stop of loader.list_of_stops) {
+    stop.x = map(
       stop.longitude,
       loader.longMin,
       loader.longMax,
       50,
       width - 50
     );
-    const y = map(stop.latitude, loader.latMax, loader.latMin, 50, height - 50);
-    circle(x, y, 1);
+    stop.y = map(stop.latitude, loader.latMax, loader.latMin, 50, height - 50);
+
+    circle(stop.x, stop.y, stop.circleSize);
   }
   pop();
-  // handleZoom();
 }
 
 function handleZoom() {
@@ -77,6 +78,9 @@ function keyReleased() {
   inputHandler.handleKeyReleased(key);
 }
 
+function mouseClicked() {
+  inputHandler.mouseClicked();
+}
 function mousePressed() {
   inputHandler.mousePressed();
 }

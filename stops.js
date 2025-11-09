@@ -4,5 +4,8 @@ class Stops {
     this.latitude = latitude; // some lat/long has nulls
     this.longitude = longitude;
     this.type = type; // prob a list
+    this.circleSize = 1; //change later idk
+    this.x = 0;
+    this.y = 0;
   }
 }

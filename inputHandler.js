@@ -6,7 +6,7 @@ class InputHandler {
     this.offset = createVector(0, 0);
 
     this.MIN_ZOOM = 0.2;
-    this.MAX_ZOOM = 10;
+    this.MAX_ZOOM = 100;
     this.KEY_ZOOM_FACTOR = 1.02;
     this.WHEEL_BASE = 1.0015;
   }
@@ -46,6 +46,9 @@ class InputHandler {
     }
   }
 
+  mouseClicked() {
+    return true;
+  }
   mousePressed() {
     this.dragStart = createVector(mouseX, mouseY);
   }

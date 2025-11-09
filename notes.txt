@@ -18,3 +18,28 @@ route types:
     - 4: ferrys
 
 
+
+0
+: 
+{"DA291C" => "Mattapan"}
+1
+: 
+{"ED8B00" => "Orange"}
+2
+: 
+{"00843D" => "Green-E"}
+3
+: 
+{"003DA5" => "Blue"}
+4
+: 
+{"7C878E" => "746"}
+5
+: 
+{"80276C" => "CR-Foxboro"}
+6
+: 
+{"008EAA" => "Boat-F7"}
+7
+: 
+{"FFC72C" => "716"}

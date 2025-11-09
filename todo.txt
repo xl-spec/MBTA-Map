@@ -6,3 +6,6 @@
 - make lines smaller?
 - button to get live api update
 - api live location drawn
+- implement Mapbox GL
+- clickable stops, gives info when clicked (pop up ui)
+- close button for popup ui
