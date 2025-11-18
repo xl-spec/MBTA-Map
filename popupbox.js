@@ -1,13 +1,20 @@
 class PopUpBox {
-  constructor() {
-    this.x = x;
+  constructor(input) {
+    this.input = input;
+    this.show = false;
+
+    this.wx = 0;
+    this.wy = 0;
   }
 
-  showPopUpBox() {
-    if (true) {
-      this.draw();
-    }
-  }
+  draw() {
+    if (!this.show) return;
 
-  draw() {}
+    const p = this.input.worldToScreenPoint(this.wx, this.wy);
+    const sx = p.x;
+    const sy = p.y;
+    const w = 120;
+    const h = 70;
+    rect(sx + 10, sy - h - 10, w, h, 5);
+  }
 }

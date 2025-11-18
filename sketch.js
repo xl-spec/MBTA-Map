@@ -8,21 +8,30 @@ function preload() {
 function setup() {
   createCanvas(800, 800);
   // createCanvas(2000, 1200);
-  collider = new Collider();
+
+  world = new World();
   inputHandler = new InputHandler();
+  collider = new Collider(inputHandler);
+  popupbox = new PopUpBox(inputHandler);
+
   loader.loadStops(loader.stopsData);
   loader.loadRoutes(loader.routesData);
   loader.loadShapes();
+  loader.computeWorldGeometry(world);
 }
 
 function draw() {
   background(220);
-  push();
 
-  inputHandler.applyTransform();
+  push();
+  fill(0);
+  noStroke();
+
   inputHandler.applyKeyZoomAtMouse();
+  inputHandler.applyTransform();
   ui.draw();
-  collider.handleCollisions(inputHandler.mouseClicked(), loader.list_of_stops);
+  popupbox.draw();
+  // collider.handleCollisions(inputHandler.mouseClicked(), loader.list_of_stops);
 
   for (const route of loader.list_of_routes) {
     if (!route.shape || route.shape.length === 0) continue;
@@ -83,6 +92,12 @@ function mouseClicked() {
 }
 function mousePressed() {
   inputHandler.mousePressed();
+
+  const hitStop = collider.handleClickOnStop(loader.list_of_stops);
+  if (hitStop) {
+    console.log("collided");
+    popupbox.show = true;
+  }
 }
 
 function mouseDragged() {

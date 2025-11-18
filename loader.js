@@ -75,4 +75,11 @@ class Loader {
       });
     }
   }
+
+  computeWorldGeometry(world) {
+    for (const stop of this.list_of_stops) {
+      stop.wx = world.mapLon(stop.longitude, this.longMin, this.longMax);
+      stop.wy = world.mapLat(stop.latitude, this.latMin, this.latMax);
+    }
+  }
 }

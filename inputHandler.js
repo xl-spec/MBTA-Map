@@ -11,10 +11,22 @@ class InputHandler {
     this.WHEEL_BASE = 1.0015;
   }
 
+  worldToScreenPoint(wx, wy) {
+    return {
+      x: wx * this.zoomNum + this.offset.x,
+      y: wy * this.zoomNum + this.offset.y,
+    };
+  }
   screenToWorld(sx, sy) {
     return createVector(
       (sx - this.offset.x) / this.zoomNum,
       (sy - this.offset.y) / this.zoomNum
+    );
+  }
+  worldToScreen(wx, wy) {
+    return createVector(
+      wx * this.zoomNum + this.offset.x,
+      wy * this.zoomNum + this.offset.y
     );
   }
 
