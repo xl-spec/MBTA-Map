@@ -2,19 +2,24 @@ class PopUpBox {
   constructor(input) {
     this.input = input;
     this.show = false;
-
-    this.wx = 0;
-    this.wy = 0;
+    this.x = 500;
+    this.y = 20;
+    this.w = 250;
+    this.h = 400;
+    this.cornerR = 5;
   }
 
   draw() {
     if (!this.show) return;
 
-    const p = this.input.worldToScreenPoint(this.wx, this.wy);
-    const sx = p.x;
-    const sy = p.y;
-    const w = 120;
-    const h = 70;
-    rect(sx + 10, sy - h - 10, w, h, 5);
+    this.input.zoomNum;
+
+    rect(
+      (this.x - this.input.offset.x) / this.input.zoomNum,
+      (this.y - this.input.offset.y) / this.input.zoomNum,
+      this.w * (1 / this.input.zoomNum),
+      this.h * (1 / this.input.zoomNum),
+      this.cornerR / this.input.zoomNum
+    );
   }
 }

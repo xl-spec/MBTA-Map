@@ -1,10 +1,14 @@
 class UserInterface {
-  constructor() {
+  constructor(input) {
+    this.originalXY = 0;
     this.myFrameRate = 0;
     this.counter = 0;
+    this.input = input;
+    this.x = 50;
+    this.y = 50;
   }
 
-  updateFrameRate() {
+  updateFrameRateSlow() {
     if (this.counter % 20 == 0) {
       this.myFrameRate = frameRate();
     }
@@ -12,7 +16,11 @@ class UserInterface {
   }
 
   draw() {
-    this.updateFrameRate();
-    text(this.myFrameRate, 50, 50);
+    this.updateFrameRateSlow();
+    text(
+      this.myFrameRate,
+      (this.x - this.input.offset.x) / this.input.zoomNum,
+      (this.y - this.input.offset.y) / this.input.zoomNum
+    );
   }
 }

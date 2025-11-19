@@ -1,7 +1,6 @@
 function preload() {
   mymap = new Map();
   loader = new Loader();
-  ui = new UserInterface();
   loader.preloadData();
 }
 
@@ -13,6 +12,7 @@ function setup() {
   inputHandler = new InputHandler();
   collider = new Collider(inputHandler);
   popupbox = new PopUpBox(inputHandler);
+  ui = new UserInterface(inputHandler);
 
   loader.loadStops(loader.stopsData);
   loader.loadRoutes(loader.routesData);
