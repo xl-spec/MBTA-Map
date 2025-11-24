@@ -24,13 +24,16 @@ function draw() {
   background(220);
 
   push();
+  ui.draw();
+  popupbox.draw();
+
+  pop();
+  push();
   fill(0);
   noStroke();
 
   inputHandler.applyKeyZoomAtMouse();
   inputHandler.applyTransform();
-  ui.draw();
-  popupbox.draw();
   // collider.handleCollisions(inputHandler.mouseClicked(), loader.list_of_stops);
 
   for (const route of loader.list_of_routes) {
@@ -61,16 +64,25 @@ function draw() {
   noStroke();
 
   for (let stop of loader.list_of_stops) {
-    stop.x = map(
-      stop.longitude,
-      loader.longMin,
-      loader.longMax,
-      50,
-      width - 50
-    );
-    stop.y = map(stop.latitude, loader.latMax, loader.latMin, 50, height - 50);
+    // console.log(stop.type);
+    if (stop.vehicle_type == 0 || stop.vehicle_type == 1) {
+      stop.x = map(
+        stop.longitude,
+        loader.longMin,
+        loader.longMax,
+        50,
+        width - 50
+      );
+      stop.y = map(
+        stop.latitude,
+        loader.latMax,
+        loader.latMin,
+        50,
+        height - 50
+      );
 
-    circle(stop.x, stop.y, stop.circleSize);
+      circle(stop.x, stop.y, stop.circleSize);
+    }
   }
   pop();
 }
@@ -95,17 +107,35 @@ function mousePressed() {
 
   const hitStop = collider.handleClickOnStop(loader.list_of_stops);
   if (hitStop) {
-    console.log("collided");
-    popupbox.show = true;
+    console.log("click on stop");
+    popupbox.visible = true;
+    popupbox.setStatus(hitStop);
+  }
+  if (collider.handleClickOnClosePopupBox(popupbox)) {
+    popupbox.visible = false;
+  }
+  if (collider.handleClickOnTitlePopupBox(popupbox)) {
+    console.log("popupdrag = true");
+    inputHandler.popupDrag = true;
   }
 }
 
 function mouseDragged() {
-  inputHandler.mouseDragged();
+  let delta = inputHandler.mouseDragged();
+
+  if (delta) {
+    popupbox.x += delta.x;
+    popupbox.y += delta.y;
+  }
 }
 
 function mouseReleased() {
   inputHandler.mouseReleased();
+
+  if (inputHandler.popupDrag) {
+    console.log("popupdrag = false");
+    inputHandler.popupDrag = false;
+  }
 }
 
 function mouseWheel(event) {

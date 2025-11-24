@@ -4,6 +4,7 @@ class InputHandler {
     this.zoomNum = 1;
     this.dragStart = null;
     this.offset = createVector(0, 0);
+    this.popupDrag = false;
 
     this.MIN_ZOOM = 0.2;
     this.MAX_ZOOM = 100;
@@ -68,9 +69,13 @@ class InputHandler {
     if (!this.dragStart) return;
     const current = createVector(mouseX, mouseY);
     const delta = p5.Vector.sub(current, this.dragStart);
-
-    this.offset.add(delta);
     this.dragStart = current;
+
+    if (!this.popupDrag) {
+      this.offset.add(delta);
+    }
+
+    return delta;
   }
   mouseReleased() {
     this.dragStart = null;

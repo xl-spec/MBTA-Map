@@ -20,17 +20,32 @@ class Loader {
   loadStops(data) {
     for (let stop of data.data) {
       let attr = stop.attributes;
-      let lat = attr.latitude;
-      let lon = attr.longitude;
-      let name = attr.name;
 
-      this.list_of_stops.push(new Stops(name, lat, lon));
+      let newStop = new Stops({
+        name: attr.name,
+        latitude: attr.latitude,
+        longitude: attr.longitude,
 
-      if (lat != null && lon != null) {
-        this.latMin = Math.min(this.latMin, lat);
-        this.latMax = Math.max(this.latMax, lat);
-        this.longMin = Math.min(this.longMin, lon);
-        this.longMax = Math.max(this.longMax, lon);
+        address: attr.address,
+        at_street: attr.at_street,
+        description: attr.description,
+        location_type: attr.location_type,
+        municipality: attr.municipality,
+        on_street: attr.on_street,
+        platform_code: attr.platform_code,
+        platform_name: attr.platform_name,
+        vehicle_type: attr.vehicle_type,
+        wheelchair_boarding: attr.wheelchair_boarding,
+      });
+
+      this.list_of_stops.push(newStop);
+
+      // update min/max
+      if (attr.latitude != null && attr.longitude != null) {
+        this.latMin = Math.min(this.latMin, attr.latitude);
+        this.latMax = Math.max(this.latMax, attr.latitude);
+        this.longMin = Math.min(this.longMin, attr.longitude);
+        this.longMax = Math.max(this.longMax, attr.longitude);
       }
     }
   }

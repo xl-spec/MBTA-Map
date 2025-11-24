@@ -17,10 +17,6 @@ class UserInterface {
 
   draw() {
     this.updateFrameRateSlow();
-    text(
-      this.myFrameRate,
-      (this.x - this.input.offset.x) / this.input.zoomNum,
-      (this.y - this.input.offset.y) / this.input.zoomNum
-    );
+    text(this.myFrameRate, this.x, this.y);
   }
 }

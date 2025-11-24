@@ -7,5 +7,7 @@
 - button to get live api update
 - api live location drawn
 - implement Mapbox GL
-- clickable stops, gives info when clicked (pop up ui)
-- close button for popup ui
+- pop up ui
+    - close button for popup ui (done)
+    - refactor it so it doesn't do inverse math (done)
+    - do mousedrag, prob small refactor/addition 
