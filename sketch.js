@@ -18,11 +18,15 @@ function setup() {
   loader.loadRoutes(loader.routesData);
   loader.loadShapes();
   loader.computeWorldGeometry(world);
+
+  inputHandler.offset.x = -1100; //temp to make it easier
+  inputHandler.offset.y = -850;
+  inputHandler.zoomNum = 4;
 }
 
 function draw() {
   background(220);
-
+  // console.log(inputHandler.offset);
   push();
   ui.draw();
   popupbox.draw();
