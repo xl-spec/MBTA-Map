@@ -36,6 +36,7 @@ class Loader {
         platform_name: attr.platform_name,
         vehicle_type: attr.vehicle_type,
         wheelchair_boarding: attr.wheelchair_boarding,
+        id: stop.id,
       });
 
       this.list_of_stops.push(newStop);

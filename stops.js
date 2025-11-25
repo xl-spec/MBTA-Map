@@ -13,6 +13,7 @@ class Stops {
     platform_name,
     vehicle_type,
     wheelchair_boarding,
+    id,
   }) {
     this.name = name;
     this.latitude = latitude; // can be null
@@ -28,9 +29,30 @@ class Stops {
     this.platform_name = platform_name;
     this.vehicle_type = vehicle_type;
     this.wheelchair_boarding = wheelchair_boarding;
+    this.id = id;
 
     this.circleSize = 5;
     this.x = 0;
     this.y = 0;
+  }
+
+  getAllStopAttributes() {
+    return {
+      name: this.name,
+      latitude: this.latitude,
+      longitude: this.longitude,
+
+      address: this.address,
+      at_street: this.at_street,
+      description: this.description,
+      location_type: this.location_type,
+      municipality: this.municipality,
+      on_street: this.on_street,
+      platform_code: this.platform_code,
+      platform_name: this.platform_name,
+      vehicle_type: this.vehicle_type,
+      wheelchair_boarding: this.wheelchair_boarding,
+      id: this.id,
+    };
   }
 }

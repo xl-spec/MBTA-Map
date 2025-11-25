@@ -19,9 +19,25 @@ class PopUpBox {
 
     this.title = "Info";
     this.textLines = []; // you can fill this with strings
+    this.statusWritten = false;
   }
 
-  setStatus(stopData) {}
+  resetStatus() {
+    this.textLines = [];
+    this.statusWritten = false;
+  }
+
+  setStatus(stopData) {
+    if (!this.statusWritten) {
+      let attr = stopData.getAllStopAttributes();
+      // console.log(attr);
+      this.textLines.push(attr.name);
+      this.textLines.push(attr.description);
+      this.textLines.push(attr.id);
+      this.statusWritten = true;
+      console.log(this.textLines);
+    }
+  }
 
   draw() {
     if (!this.visible) return;
@@ -32,7 +48,7 @@ class PopUpBox {
     noStroke();
     fill(240);
     rect(this.x, this.y, this.w, this.h, this.cornerR);
-
+    color(255, 128, 128).setAlpha(128);
     // title bar
     fill(200);
     rect(

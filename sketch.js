@@ -10,10 +10,10 @@ function setup() {
 
   world = new World();
   inputHandler = new InputHandler();
+  mbtaclient = new MBTAClient();
   collider = new Collider(inputHandler);
-  popupbox = new PopUpBox(inputHandler);
+  popupbox = new PopUpBox(inputHandler, mbtaclient);
   ui = new UserInterface(inputHandler);
-
   loader.loadStops(loader.stopsData);
   loader.loadRoutes(loader.routesData);
   loader.loadShapes();
@@ -22,16 +22,22 @@ function setup() {
   inputHandler.offset.x = -1100; //temp to make it easier
   inputHandler.offset.y = -850;
   inputHandler.zoomNum = 4;
+  popupbox.visible = true;
+
+  // let mydata = await mbtaclient.getPredictionStopData(70034).data
+  // console.log();
+  mbtaclient
+    .getPredictionStopData("70034")
+    .then((predictions) => {
+      // console.log(predictions);
+      console.log(predictions.data);
+    })
+    .catch((err) => console.error(err));
 }
 
 function draw() {
   background(220);
   // console.log(inputHandler.offset);
-  push();
-  ui.draw();
-  popupbox.draw();
-
-  pop();
   push();
   fill(0);
   noStroke();
@@ -89,6 +95,12 @@ function draw() {
     }
   }
   pop();
+
+  push();
+  popupbox.draw();
+  ui.draw();
+
+  pop();
 }
 
 function handleZoom() {
@@ -113,6 +125,7 @@ function mousePressed() {
   if (hitStop) {
     console.log("click on stop");
     popupbox.visible = true;
+    popupbox.resetStatus();
     popupbox.setStatus(hitStop);
   }
   if (collider.handleClickOnClosePopupBox(popupbox)) {

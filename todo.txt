@@ -10,4 +10,6 @@
 - pop up ui
     - close button for popup ui (done)
     - refactor it so it doesn't do inverse math (done)
-    - do mousedrag, prob small refactor/addition 
+    - do mousedrag, prob small refactor/addition (done)
+    - make it prettier
+    - incorporate live data
