@@ -13,10 +13,11 @@ class UserInterface {
       this.myFrameRate = frameRate();
     }
     this.counter += 1;
+    return this.myFrameRate;
   }
 
   draw() {
-    this.updateFrameRateSlow();
-    text(this.myFrameRate, this.x, this.y);
+    text(this.updateFrameRateSlow(), this.x, this.y);
+    // text(frameRate(), this.x, this.y);
   }
 }

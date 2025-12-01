@@ -2,37 +2,34 @@ function preload() {
   mymap = new Map();
   loader = new Loader();
   loader.preloadData();
+
+  world = new World();
+  inputHandler = new InputHandler();
+  mbtaclient = new MBTAClient();
+  vehicleFleet = new VehicleFleet(mbtaclient);
+  collider = new Collider(inputHandler);
+  popupbox = new PopUpBox(mbtaclient);
+  ui = new UserInterface(inputHandler);
 }
 
 function setup() {
   createCanvas(800, 800);
   // createCanvas(2000, 1200);
 
-  world = new World();
-  inputHandler = new InputHandler();
-  mbtaclient = new MBTAClient();
-  collider = new Collider(inputHandler);
-  popupbox = new PopUpBox(inputHandler, mbtaclient);
-  ui = new UserInterface(inputHandler);
   loader.loadStops(loader.stopsData);
   loader.loadRoutes(loader.routesData);
   loader.loadShapes();
-  loader.computeWorldGeometry(world);
+  // loader.computeWorldGeometry(world);
 
+  // settings for now
   inputHandler.offset.x = -1100; //temp to make it easier
   inputHandler.offset.y = -850;
   inputHandler.zoomNum = 4;
-  popupbox.visible = true;
-
-  // let mydata = await mbtaclient.getPredictionStopData(70034).data
-  // console.log();
-  mbtaclient
-    .getPredictionStopData("70034")
-    .then((predictions) => {
-      // console.log(predictions);
-      console.log(predictions.data);
-    })
-    .catch((err) => console.error(err));
+  // popupbox.visible = true;
+  vehicleFleet.latMax = loader.latMax;
+  vehicleFleet.latMin = loader.latMin;
+  vehicleFleet.longMax = loader.longMax;
+  vehicleFleet.longMin = loader.longMin;
 }
 
 function draw() {
@@ -44,7 +41,6 @@ function draw() {
 
   inputHandler.applyKeyZoomAtMouse();
   inputHandler.applyTransform();
-  // collider.handleCollisions(inputHandler.mouseClicked(), loader.list_of_stops);
 
   for (const route of loader.list_of_routes) {
     if (!route.shape || route.shape.length === 0) continue;
@@ -56,7 +52,7 @@ function draw() {
     ) {
       // mymap.set(route.id, route.hexcolor);
       noFill();
-
+      // console.log(route.id);
       for (let coords of route.shape) {
         beginShape();
         for (const [lat, lon] of coords) {
@@ -92,8 +88,11 @@ function draw() {
       );
 
       circle(stop.x, stop.y, stop.circleSize);
+      // console.log("x: " + stop.x + " y: " + stop.y);
     }
   }
+  vehicleFleet.draw();
+
   pop();
 
   push();
@@ -126,7 +125,7 @@ function mousePressed() {
     console.log("click on stop");
     popupbox.visible = true;
     popupbox.resetStatus();
-    popupbox.setStatus(hitStop);
+    popupbox.setStatus(hitStop, vehicleFleet);
   }
   if (collider.handleClickOnClosePopupBox(popupbox)) {
     popupbox.visible = false;

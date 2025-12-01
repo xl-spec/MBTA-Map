@@ -1,6 +1,7 @@
 class PopUpBox {
-  constructor(input) {
-    this.input = input;
+  constructor(mbtaclient) {
+    // this.input = input;
+    this.mbtaclient = mbtaclient;
     this.x = 500;
     this.y = 20;
     this.w = 250;
@@ -8,6 +9,7 @@ class PopUpBox {
 
     this.titleBarH = 30;
     this.cornerR = 5;
+
     this.visible = false;
     this.dragging = false;
     this.dragOffsetX = 0;
@@ -27,15 +29,39 @@ class PopUpBox {
     this.statusWritten = false;
   }
 
-  setStatus(stopData) {
+  setStatus(myStop, vehicleFleet) {
     if (!this.statusWritten) {
-      let attr = stopData.getAllStopAttributes();
-      // console.log(attr);
+      let attr = myStop.getAllStopAttributes();
+
       this.textLines.push(attr.name);
       this.textLines.push(attr.description);
       this.textLines.push(attr.id);
+      // console.log(attr);
+
+      this.mbtaclient
+        .getPredictionFromStopID(attr.id)
+        .then((predictions) => {
+          // console.log(predictions.data);
+          myStop.predictionBatch = PredictionBatch.fromApiData(
+            predictions.data
+          );
+          // vehicleID = predictions.data.relationships;
+          // get formatted lines
+          const predictionLines = myStop.predictionBatch.toPopupLines(5);
+          this.textLines.push(""); // blank line
+          this.textLines.push(...predictionLines);
+
+          console.log("Prediction batch:", myStop.predictionBatch);
+          // console.log("Popup textLines:", this.textLines);
+          // for (let id of myStop.predictionBatch.vehicle_id) {
+          //   console.log(id);
+          // }
+          vehicleFleet.setVehicleIdsFromPredictionBatch(
+            myStop.predictionBatch.vehicle_id
+          );
+        })
+        .catch((err) => console.error(err));
       this.statusWritten = true;
-      console.log(this.textLines);
     }
   }
 
@@ -115,3 +141,19 @@ class PopUpBox {
     };
   }
 }
+
+// class PredictionBatch {
+//   constructor() {
+//     this.arrival_time = arrival_time; // list
+//     this.arrival_uncertainty = arrival_uncertainty;
+//     this.departure_times = departure_times; // list
+//     this.departure_uncertainty = departure_uncertainty;
+//     this.direction_id = direction_id;
+//     this.last_trip = last_trip;
+//     this.revenue = revenue;
+//     this.schedule_relationship = schedule_relationship;
+//     this.status = status;
+//     this.stop_sequence = stop_sequence;
+//     this.update_type = update_type;
+//   }
+// }

@@ -12,4 +12,9 @@
     - refactor it so it doesn't do inverse math (done)
     - do mousedrag, prob small refactor/addition (done)
     - make it prettier
-    - incorporate live data
+    - incorporate live data (done)
+        - fetch api class (done)
+        - unpack fetched data (done)
+- create vehicle class
+- possibly combine stops, currently unique for every direction
+

@@ -10,8 +10,12 @@ class MBTAClient {
     return resp.json();
   }
 
-  getPredictionStopData(stopid) {
+  getPredictionFromStopID(stopid) {
     return this.fetchJSON(`predictions?filter[stop]=${stopid}`);
+  }
+
+  getVehicleFromStopPredictions(vehicleid) {
+    return this.fetchJSON(`vehicles?filter[id]=${vehicleid}`);
   }
 }
 
