@@ -22,10 +22,8 @@ function setup() {
   // loader.computeWorldGeometry(world);
 
   // settings for now
-  inputHandler.offset.x = -1100; //temp to make it easier
-  inputHandler.offset.y = -850;
-  inputHandler.zoomNum = 4;
   // popupbox.visible = true;
+
   vehicleFleet.latMax = loader.latMax;
   vehicleFleet.latMin = loader.latMin;
   vehicleFleet.longMax = loader.longMax;

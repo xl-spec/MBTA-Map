@@ -2,14 +2,40 @@ class InputHandler {
   constructor() {
     this.keys = {};
     this.zoomNum = 1;
-    this.dragStart = null;
     this.offset = createVector(0, 0);
+    this.dragStart = null;
     this.popupDrag = false;
 
     this.MIN_ZOOM = 0.2;
     this.MAX_ZOOM = 100;
     this.KEY_ZOOM_FACTOR = 1.02;
     this.WHEEL_BASE = 1.0015;
+
+    const raw = localStorage.getItem("inputSettings");
+    if (raw) {
+      const saved = JSON.parse(raw);
+
+      if (saved.zoomNum !== undefined) {
+        this.zoomNum = saved.zoomNum;
+      }
+      if (saved.offset) {
+        this.offset = createVector(saved.offset.x, saved.offset.y);
+      }
+
+      console.log("Loaded settings:", saved);
+    } else {
+      this.saveSettings();
+    }
+  }
+
+  saveSettings() {
+    const payload = {
+      zoomNum: this.zoomNum,
+      offset: { x: this.offset.x, y: this.offset.y },
+    };
+
+    localStorage.setItem("inputSettings", JSON.stringify(payload));
+    console.log("Saved settings:", payload);
   }
 
   worldToScreenPoint(wx, wy) {

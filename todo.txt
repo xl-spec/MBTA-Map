@@ -1,20 +1,19 @@
-- create loader class (done)
-- zoom in/out (done)
-- fix scale (done)
-
+@ Optimizations:
 - possibly speed up loadShapes
-- make lines smaller?
-- button to get live api update
+
+@ Add Ons:
+- IO
+    - button to get live api update
+    - ui buttons to save settings
+    - write to file, file save settings
 - api live location drawn
 - implement Mapbox GL
-- pop up ui
-    - close button for popup ui (done)
-    - refactor it so it doesn't do inverse math (done)
-    - do mousedrag, prob small refactor/addition (done)
-    - make it prettier
-    - incorporate live data (done)
-        - fetch api class (done)
-        - unpack fetched data (done)
-- create vehicle class
-- possibly combine stops, currently unique for every direction
+- create vehicle class (done)
+- combine stops, currently unique for every direction
+    - might need to do a bunch of math coding ;-;
 
+@ Prettier
+- make ui prettier
+- make polylines smaller
+
+@ Bug Fix
