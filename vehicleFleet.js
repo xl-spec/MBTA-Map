@@ -9,6 +9,15 @@ class VehicleFleet {
     this.longMin = 0;
   }
 
+  getAllVehicleData() {
+    return this.mbtaclient.getVehicleData();
+  }
+
+  setAllVehicleData() {
+    let allVehicleData = this.getAllVehicleData();
+    console.log(allVehicleData);
+  }
+
   getVehicleDataFromVehicleId(vehicleId) {
     console.log("Fetching vehicle", vehicleId);
     return this.mbtaclient.getVehicleFromStopPredictions(vehicleId);
@@ -19,9 +28,9 @@ class VehicleFleet {
 
     for (let id of vehicleIds) {
       const myVehicle = new Vehicle();
-      myVehicle.id = id.id; // assuming each element is { id: "O-..." }
+      myVehicle.id = id.id;
 
-      // pass bounds in case you want them later on the instance
+      // to match the rest of the map
       myVehicle.latMax = this.latMax;
       myVehicle.latMin = this.latMin;
       myVehicle.longMax = this.longMax;

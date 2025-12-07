@@ -67,6 +67,7 @@ class Loader {
   loadShapes() {
     for (let i = 0; i < this.list_of_routes.length; i++) {
       let name = this.list_of_routes[i].id;
+      // console.log(name);
       const file = `data/shapes/mbta_shapes_${name}.json`;
 
       loadJSON(file, (data) => {

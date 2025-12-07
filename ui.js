@@ -2,11 +2,13 @@ class UserInterface {
   constructor(input) {
     this.fps = new FPS(20, 30);
     this.saveState = new SaveState(700, 20, input);
+    this.scaleBar = new ScaleBar(650, 700, input, 100);
   }
 
   draw() {
     this.fps.draw();
     this.saveState.draw();
+    this.scaleBar.draw();
   }
 }
 
@@ -44,8 +46,29 @@ class SaveState {
     });
   }
 
+  draw() {}
+}
+
+class ScaleBar {
+  constructor(x, y, input, width) {
+    this.x = x;
+    this.y = y;
+    this.input = input;
+    this.width = width;
+
+    this.referenceNumber = 0;
+  }
+
+  // calculateScaleBar(x, y) {
+  //   // this.referenceNumber =
+  //   let x = 50 + ((lon - minLon) * (width - 100)) / (maxLon - minLon);
+  //   let y = 50 + ((maxLat - lat) * (height - 100)) / (maxLat - minLat);
+  // }
+
   draw() {
-    // positioning is handled in the constructor; nothing needed per-frame
+    rect(this.x, this.y, this.width, 1);
+    //adjust text later, close enough right now
+    text(this.referenceNumber, this.x + this.width / 2, this.y);
   }
 }
 

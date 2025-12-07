@@ -17,6 +17,10 @@ class MBTAClient {
   getVehicleFromStopPredictions(vehicleid) {
     return this.fetchJSON(`vehicles?filter[id]=${vehicleid}`);
   }
+
+  getVehicleData() {
+    return this.fetchJSON(`vehicles`);
+  }
 }
 
 // async function getRedLinePredictions() {

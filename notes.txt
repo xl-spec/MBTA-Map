@@ -10,6 +10,13 @@ can scale 500x, canvas for now is 1400x800
   //   circle((stop.latitude - latMin) * 500, (stop.longitude - longMin) * 500, 1);
   // }
 
+
+popupbox:
+stop name
+
+
+ima round mbta carts to be 10x10x80, HeightxWidthxLength
+
 route types:
     - 0: mattapan trolley + green b-d
     - 1: red, orange, blue trains
@@ -19,6 +26,19 @@ route types:
 
 
 
+        "description": "Mission Park - Green Line - Park Street & North",
+        "latitude": 42.333092,
+        "location_type": 0,
+        "longitude": -71.10968,
+        "municipality": "Boston",
+        "name": "Mission Park",
+
+        "description": "Mission Park - Green Line - (E) Heath Street",
+        "latitude": 42.333279,
+        "location_type": 0,
+        "longitude": -71.109276,
+        "municipality": "Boston",
+        "name": "Mission Park",
 0
 : 
 {"DA291C" => "Mattapan"}
@@ -102,3 +122,15 @@ new Map([
         "7C878E"
     ]
 ])
+
+
+
+x:399.42264396048773
+y:345.2568008079662
+long:-71.063833
+lat:42.284508
+
+x:371.89347079693545
+y:312.7176956489626
+long:-71.125652
+lat:42.34112

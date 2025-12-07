@@ -19,11 +19,11 @@ function setup() {
   loader.loadStops(loader.stopsData);
   loader.loadRoutes(loader.routesData);
   loader.loadShapes();
-  // loader.computeWorldGeometry(world);
 
   // settings for now
   // popupbox.visible = true;
 
+  // temp fix
   vehicleFleet.latMax = loader.latMax;
   vehicleFleet.latMin = loader.latMin;
   vehicleFleet.longMax = loader.longMax;
@@ -32,7 +32,6 @@ function setup() {
 
 function draw() {
   background(220);
-  // console.log(inputHandler.offset);
   push();
   fill(0);
   noStroke();
@@ -40,6 +39,7 @@ function draw() {
   inputHandler.applyKeyZoomAtMouse();
   inputHandler.applyTransform();
 
+  // load polyline
   for (const route of loader.list_of_routes) {
     if (!route.shape || route.shape.length === 0) continue;
     stroke(`#${route.hexcolor || "999999"}`);
@@ -48,9 +48,10 @@ function draw() {
       route.hexcolor != "008EAA" &&
       route.hexcolor != "80276C"
     ) {
+      // console.log(route.id);
       // mymap.set(route.id, route.hexcolor);
       noFill();
-      // console.log(route.id);
+      strokeWeight(2 / inputHandler.zoomNum);
       for (let coords of route.shape) {
         beginShape();
         for (const [lat, lon] of coords) {
@@ -60,13 +61,13 @@ function draw() {
         }
         endShape();
       }
-      // console.log(mymap);
     }
   }
 
   fill(0);
   noStroke();
 
+  //load stops (circles)
   for (let stop of loader.list_of_stops) {
     // console.log(stop.type);
     if (stop.vehicle_type == 0 || stop.vehicle_type == 1) {
@@ -85,10 +86,17 @@ function draw() {
         height - 50
       );
 
+      // console.log("x:" + stop.x);
+      // console.log("y:" + stop.y);
+      // console.log("long:" + stop.longitude);
+      // console.log("lat:" + stop.latitude);
       circle(stop.x, stop.y, stop.circleSize);
-      // console.log("x: " + stop.x + " y: " + stop.y);
     }
   }
+  // console.log("x: " + loader.list_of_stops[500].x);
+  // console.log("y: " + loader.list_of_stops[500].y);
+  // console.log("long: " + loader.list_of_stops[500].longitude);
+  // console.log("lat: " + loader.list_of_stops[500].latitude);
   vehicleFleet.draw();
 
   pop();

@@ -11,9 +11,16 @@
 - create vehicle class (done)
 - combine stops, currently unique for every direction
     - might need to do a bunch of math coding ;-;
+- search bar (hard)
+    - locates and moves screen position and centers it
+    - search for stop
+        - use trie for auto complete feature
 
 @ Prettier
 - make ui prettier
 - make polylines smaller
+- make vehicle prettier
+    - add # of carts
 
 @ Bug Fix
+- take out random green line shapes

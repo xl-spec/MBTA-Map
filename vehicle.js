@@ -64,8 +64,22 @@ class Vehicle {
     this.updated_at = attr.updated_at ?? this.updated_at;
 
     // relationships
+    // temp fix for different green line colors... comeback when i refactor everything
     this.relationships_route_id =
       rel.route?.data?.id ?? this.relationships_route_id;
+    if (this.relationships_route_id == "Green-B") {
+      this.relationships_route_id = "#00ff00";
+    }
+    if (this.relationships_route_id == "Green-C") {
+      this.relationships_route_id = "#00c800";
+    }
+    if (this.relationships_route_id == "Green-D") {
+      this.relationships_route_id = "#009600";
+    }
+    if (this.relationships_route_id == "Green-E") {
+      this.relationships_route_id = "#006400";
+    }
+
     this.relationships_stop_id =
       rel.stop?.data?.id ?? this.relationships_stop_id;
     this.relationships_trip_id =
@@ -87,8 +101,7 @@ class Vehicle {
     translate(this.x, this.y);
     rotate(angleRad);
 
-    // draw a little arrow pointing along +X in local space
-    fill("red");
+    fill(this.relationships_route_id);
 
     const size = 1;
     beginShape();

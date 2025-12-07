@@ -31,7 +31,7 @@ class Stops {
     this.wheelchair_boarding = wheelchair_boarding;
     this.id = id;
 
-    this.circleSize = 2;
+    this.circleSize = 0.2;
     this.x = 0;
     this.y = 0;
 

@@ -17,6 +17,7 @@ class PredictionBatch {
     this.length = 0;
   }
 
+  // magic
   addPrediction(item) {
     // item.attributes = predictions.data[i].item.attributesibutes
     this.arrival_time.push(item.attributes.arrival_time || null);
@@ -39,7 +40,6 @@ class PredictionBatch {
     this.length++;
   }
 
-  // Build a PredictionBatch from MBTA API predictions.data
   static fromApiData(dataArray) {
     const batch = new PredictionBatch();
     for (const item of dataArray) {
@@ -49,15 +49,16 @@ class PredictionBatch {
   }
 
   // Return formatted lines for the popup
-  toPopupLines(maxLines = 5) {
+  // this is just temp, will make the ui better
+  // also need to make this display line info (green b, green c)
+  toPopupLines() {
     if (this.length === 0) {
       return ["No upcoming predictions."];
     }
 
     const lines = [];
-    const count = Math.min(this.length, maxLines);
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < this.length; i++) {
       const arr = this.arrival_time[i];
       const dep = this.departure_time[i];
       const dir = this.direction_id[i];
