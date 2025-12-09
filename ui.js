@@ -1,14 +1,16 @@
 class UserInterface {
-  constructor(input) {
+  constructor(input, world) {
     this.fps = new FPS(20, 30);
     this.saveState = new SaveState(700, 20, input);
-    this.scaleBar = new ScaleBar(650, 700, input, 100);
+    this.scaleBar = new ScaleBar(650, 700, input, world, 100);
+    this.centerPoint = new CenterPoint(input, world, 4);
   }
 
   draw() {
     this.fps.draw();
     this.saveState.draw();
     this.scaleBar.draw();
+    this.centerPoint.draw();
   }
 }
 
@@ -50,26 +52,62 @@ class SaveState {
 }
 
 class ScaleBar {
-  constructor(x, y, input, width) {
+  constructor(x, y, input, world, width) {
     this.x = x;
     this.y = y;
     this.input = input;
+    this.world = world;
     this.width = width;
-
     this.referenceNumber = 0;
   }
 
-  // calculateScaleBar(x, y) {
-  //   // this.referenceNumber =
-  //   let x = 50 + ((lon - minLon) * (width - 100)) / (maxLon - minLon);
-  //   let y = 50 + ((maxLat - lat) * (height - 100)) / (maxLat - minLat);
-  // }
+  update() {
+    this.referenceNumber = this.world.screenDistanceMiles(
+      this.x,
+      this.y,
+      this.x + this.width,
+      this.y,
+      this.input
+    );
+  }
 
   draw() {
+    this.update();
     rect(this.x, this.y, this.width, 1);
-    //adjust text later, close enough right now
-    text(this.referenceNumber, this.x + this.width / 2, this.y);
+    textAlign(CENTER);
+    text(
+      this.referenceNumber.toFixed(10) + " miles",
+      this.x + this.width / 2,
+      this.y - 5
+    );
   }
 }
 
-// class
+class CenterPoint {
+  constructor(input, world, size) {
+    this.input = input;
+    this.world = world;
+    this.size = size;
+
+    this.longAndLat = "";
+  }
+
+  getLongAndLat() {
+    // center of the canvas
+    const cx = width / 2;
+    const cy = height / 2;
+
+    const info = this.world.screenToLatLon(cx, cy, this.input);
+    this.longAndLat = `${info.lat.toFixed(6)}, ${info.lon.toFixed(6)}`;
+    return this.longAndLat;
+  }
+
+  draw() {
+    const cx = width / 2;
+    const cy = height / 2;
+
+    circle(cx, cy, this.size);
+    textAlign(CENTER);
+    text(this.getLongAndLat(), cx, cy);
+  }
+}

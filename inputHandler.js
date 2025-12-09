@@ -38,28 +38,17 @@ class InputHandler {
     console.log("Saved settings:", payload);
   }
 
-  worldToScreenPoint(wx, wy) {
-    return {
-      x: wx * this.zoomNum + this.offset.x,
-      y: wy * this.zoomNum + this.offset.y,
-    };
-  }
   screenToWorld(sx, sy) {
-    return createVector(
-      (sx - this.offset.x) / this.zoomNum,
-      (sy - this.offset.y) / this.zoomNum
-    );
+    return world.screenToWorld(sx, sy, this);
   }
+
   worldToScreen(wx, wy) {
-    return createVector(
-      wx * this.zoomNum + this.offset.x,
-      wy * this.zoomNum + this.offset.y
-    );
+    return world.worldToScreen(wx, wy, this);
   }
 
   zoomAt(factor, sx = mouseX, sy = mouseY) {
     const prevZoom = this.zoomNum;
-    const nextZoom = constrain(prevZoom * factor, this.MIN_ZOOM, this.MAX_ZOOM);
+    const nextZoom = prevZoom * factor;
     if (nextZoom === prevZoom) return;
 
     const w = this.screenToWorld(sx, sy);

@@ -1,23 +1,27 @@
 class Collider {
-  constructor(inputHandler) {
-    this.input = inputHandler; // object from sketch
+  constructor(inputHandler, world) {
+    this.input = inputHandler; // for zoomNum + offset
+    this.world = world; // for all coord conversions
   }
 
   handleCollisions(mousePressed, loaded_stops) {
     if (mousePressed) {
-      this.handleClickOnStop(loaded_stops);
+      return this.handleClickOnStop(loaded_stops);
     }
+    return null;
   }
 
   handleClickOnStop(loaded_stops) {
     for (let stop of loaded_stops) {
-      let p = this.input.worldToScreenPoint(stop.x, stop.y);
-      let sx = p.x;
-      let sy = p.y;
-      let dx = mouseX - sx;
-      let dy = mouseY - sy;
+      // stop.x, stop.y should be in WORLD space
+      const p = this.world.worldToScreen(stop.x, stop.y, this.input);
+      const sx = p.x;
+      const sy = p.y;
 
-      let r = stop.circleSize * 0.5 * this.input.zoomNum;
+      const dx = mouseX - sx;
+      const dy = mouseY - sy;
+
+      const r = stop.circleSize * 0.5 * this.input.zoomNum;
 
       if (dx * dx + dy * dy <= r * r) {
         return stop;
@@ -26,39 +30,45 @@ class Collider {
     return null;
   }
 
+  // ---- helper for rectangles ----
+  _pointInRect(mx, my, rect) {
+    return (
+      mx >= rect.x &&
+      mx <= rect.x + rect.w &&
+      my >= rect.y &&
+      my <= rect.y + rect.h
+    );
+  }
+
   handleClickOnClosePopupBox(popupbox) {
-    if (!popupbox.visible) return;
+    if (!popupbox.visible) return null;
 
     const closeButton = popupbox._closeButtonRect();
-    const mx = mouseX;
-    const my = mouseY;
-
-    if (
-      mx >= closeButton.x &&
-      mx <= closeButton.x + closeButton.w &&
-      my >= closeButton.y &&
-      my <= closeButton.y + closeButton.h
-    ) {
+    if (this._pointInRect(mouseX, mouseY, closeButton)) {
       return true;
     }
     return null;
   }
 
   handleClickOnTitlePopupBox(popupbox) {
-    if (!popupbox.visible) return;
+    if (!popupbox.visible) return null;
 
     const titleBar = popupbox._titleBarRect();
-    const mx = mouseX;
-    const my = mouseY;
-
-    if (
-      mx >= titleBar.x &&
-      mx <= titleBar.x + titleBar.w &&
-      my >= titleBar.y &&
-      my <= titleBar.y + titleBar.h
-    ) {
+    if (this._pointInRect(mouseX, mouseY, titleBar)) {
       return true;
     }
     return null;
   }
+
+  // handleVehicleCarriageOnPolyline(vehicle, shape) {
+
+  //   // get vehicle id, match with shape json,
+  //   // load out polyline data (or fetch this data cus it's already done)
+  //   // get algo to detech the 2 collisions
+  //   // based on vehicle direction, pick the proper one
+  //   // spawn a new vehicle slightly behind
+  //   // need to do math and spawn the vehicle data of:
+  //   //x, y, w, h, center point, point of intersection, maybe trig idk
+  //   // return {x, y}
+  // }
 }

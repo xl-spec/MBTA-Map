@@ -1,13 +1,12 @@
 class Vehicle {
-  // im not sure what to do with this rn, but prob need this to fetch vehicle data later
   constructor() {
     this.id = 0;
     this.type = 0; // ?
 
     this.x = 0;
     this.y = 0;
-    this.w = 2;
-    this.h = 8;
+    this.w = 80; // all trains same size for now
+    this.h = 10;
 
     this.latMin = 0;
     this.latMax = 0;
@@ -86,32 +85,52 @@ class Vehicle {
       rel.trip?.data?.id ?? this.relationships_trip_id;
   }
 
+  calculateTrainDimensions(world) {
+    const FEET_TO_METERS = 0.3048;
+    const lengthM = 80 * FEET_TO_METERS; // along the track
+    const widthM = 10 * FEET_TO_METERS;
+
+    // approximate scale of the world in meters per world-unit
+    const latCenter = 0.5 * (world.latMin + world.latMax);
+
+    // horizontal distance of the whole map at center latitude
+    const worldWidthMeters = world.haversineMeters(
+      latCenter,
+      world.longMin,
+      latCenter,
+      world.longMax
+    );
+
+    // vertical distance of the whole map at some longitude
+    const worldHeightMeters = world.haversineMeters(
+      world.latMin,
+      world.longMin,
+      world.latMax,
+      world.longMin
+    );
+
+    const metersPerWorldX = worldWidthMeters / world.w;
+    const metersPerWorldY = worldHeightMeters / world.h;
+
+    // final world-space rectangle size (before zoom)
+    this.w = lengthM / metersPerWorldX;
+    this.h = widthM / metersPerWorldY;
+  }
+
   draw() {
+    // for (let carriage in this.carriages) {
+
+    // }
     this.x = map(this.longitude, this.longMin, this.longMax, 50, width - 50);
     this.y = map(this.latitude, this.latMax, this.latMin, 50, height - 50);
 
-    // rect(this.x, this.y, this.w, this.h);
-
-    // Convert MBTA bearing (nav-style) to p5 angle
-    // MBTA: 0 = North (up), clockwise
-    // p5:   0 = +X (right), counterclockwise
-    let angleRad = radians(90 - this.bearing);
-
     push();
     translate(this.x, this.y);
-    rotate(angleRad);
+    // rotate(QUARTER_PI * 2);
 
     fill(this.relationships_route_id);
-
-    const size = 1;
-    beginShape();
-    // tip pointing forward (+X)
-    vertex(size, 0);
-    // back bottom
-    vertex(-size * 0.7, size * 0.5);
-    // back top
-    vertex(-size * 0.7, -size * 0.5);
-    endShape(CLOSE);
+    rectMode(CENTER);
+    rect(0, 0, this.w, this.h);
 
     pop();
   }

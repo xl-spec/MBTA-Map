@@ -1,11 +1,11 @@
 @ Optimizations:
 - possibly speed up loadShapes
+- make sketch less messy/refactor draw or have a fleet idk
 
 @ Add Ons:
 - IO
     - button to get live api update
-    - ui buttons to save settings
-    - write to file, file save settings
+    - ui buttons to save settings (done)
 - api live location drawn
 - implement Mapbox GL
 - create vehicle class (done)
@@ -21,6 +21,8 @@
 - make polylines smaller
 - make vehicle prettier
     - add # of carts
+    - create better algo for direction
 
 @ Bug Fix
 - take out random green line shapes
+- buttons overlap, does all actions on point

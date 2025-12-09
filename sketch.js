@@ -3,13 +3,13 @@ function preload() {
   loader = new Loader();
   loader.preloadData();
 
-  world = new World();
   inputHandler = new InputHandler();
+  world = new World();
   mbtaclient = new MBTAClient();
-  vehicleFleet = new VehicleFleet(mbtaclient);
-  collider = new Collider(inputHandler);
+  vehicleFleet = new VehicleFleet(mbtaclient, world, inputHandler);
+  collider = new Collider(inputHandler, world);
   popupbox = new PopUpBox(mbtaclient);
-  ui = new UserInterface(inputHandler);
+  ui = new UserInterface(inputHandler, world);
 }
 
 function setup() {
@@ -19,6 +19,8 @@ function setup() {
   loader.loadStops(loader.stopsData);
   loader.loadRoutes(loader.routesData);
   loader.loadShapes();
+  world.getLocalMinMax(loader);
+  world.setScreenBounds(50, 50, width - 100, height - 100);
 
   // settings for now
   // popupbox.visible = true;
@@ -28,6 +30,8 @@ function setup() {
   vehicleFleet.latMin = loader.latMin;
   vehicleFleet.longMax = loader.longMax;
   vehicleFleet.longMin = loader.longMin;
+
+  vehicleFleet.setAllVehicleData();
 }
 
 function draw() {
@@ -86,17 +90,9 @@ function draw() {
         height - 50
       );
 
-      // console.log("x:" + stop.x);
-      // console.log("y:" + stop.y);
-      // console.log("long:" + stop.longitude);
-      // console.log("lat:" + stop.latitude);
       circle(stop.x, stop.y, stop.circleSize);
     }
   }
-  // console.log("x: " + loader.list_of_stops[500].x);
-  // console.log("y: " + loader.list_of_stops[500].y);
-  // console.log("long: " + loader.list_of_stops[500].longitude);
-  // console.log("lat: " + loader.list_of_stops[500].latitude);
   vehicleFleet.draw();
 
   pop();
