@@ -130,7 +130,7 @@ class Vehicle {
 
     fill(this.relationships_route_id);
     rectMode(CENTER);
-    rect(0, 0, this.w, this.h);
+    rect(0, 0, this.w * 10, this.h * 10);
 
     pop();
   }
