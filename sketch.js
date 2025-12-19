@@ -39,7 +39,7 @@ function draw() {
   push();
   fill(0);
   noStroke();
-
+  // vehicleFleet.setAllVehicleData();
   inputHandler.applyKeyZoomAtMouse();
   inputHandler.applyTransform();
 
