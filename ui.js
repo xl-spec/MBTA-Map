@@ -23,7 +23,7 @@ class FPS {
   }
 
   updateFrameRateSlow() {
-    if (this.counter % 20 == 0) {
+    if (this.counter % 15 == 0) {
       this.myFrameRate = frameRate();
     }
     this.counter += 1;

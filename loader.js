@@ -2,6 +2,7 @@ class Loader {
   constructor() {
     this.list_of_stops = [];
     this.list_of_routes = [];
+    this.routesById = new Map();
 
     this.latMin = Infinity;
     this.latMax = -Infinity;
@@ -12,12 +13,29 @@ class Loader {
     this.routesData = null;
   }
 
-  preloadData() {
-    this.stopsData = loadJSON("data/mbta_stops.json");
-    this.routesData = loadJSON("data/mbta_routes.json");
+  async preloadData() {
+    // fetch in parallel
+    const [stopsResp, routesResp] = await Promise.all([
+      fetch("data/mbta_stops.json"),
+      fetch("data/mbta_routes.json"),
+    ]);
+
+    if (!stopsResp.ok || !routesResp.ok) {
+      throw new Error("Failed to preload stops or routes");
+    }
+
+    // parse JSON in parallel
+    const [stopsData, routesData] = await Promise.all([
+      stopsResp.json(),
+      routesResp.json(),
+    ]);
+
+    this.stopsData = stopsData;
+    this.routesData = routesData;
   }
 
   loadStops(data) {
+    // console.log(data);
     for (let stop of data.data) {
       let attr = stop.attributes;
 
@@ -52,30 +70,31 @@ class Loader {
   }
 
   loadRoutes(data) {
-    for (let route of data.data) {
-      let attr = route.attributes;
-      let hexcolor = attr.color;
-      let desc = attr.desc;
-      let dir = attr.direction_names;
-      let type = attr.type;
-      let id = route.id;
-
-      this.list_of_routes.push(new Routes(id, hexcolor, desc, dir, type));
+    for (const route of data.data) {
+      const newRoute = new Routes(route);
+      this.list_of_routes.push(newRoute);
+      this.routesById.set(newRoute.id, newRoute);
     }
   }
 
-  loadShapes() {
-    for (let i = 0; i < this.list_of_routes.length; i++) {
-      let name = this.list_of_routes[i].id;
-      // console.log(name);
+  getRouteById(id) {
+    return this.routesById.get(id) || null;
+  }
+
+  async loadShapesAsync() {
+    const tasks = this.list_of_routes.map(async (route) => {
+      const name = route.id;
       const file = `data/shapes/mbta_shapes_${name}.json`;
 
-      loadJSON(file, (data) => {
-        const shapeData = [];
+      try {
+        const resp = await fetch(file);
+        if (!resp.ok) throw new Error(resp.status);
+        const data = await resp.json();
 
+        const shapeData = [];
         for (const shape of data.data) {
           const encoded = shape.attributes.polyline;
-          const coords = polyline.decode(encoded);
+          const coords = polyline.decode(encoded); // decode once
 
           for (const [lat, lon] of coords) {
             this.latMin = min(this.latMin, lat);
@@ -87,16 +106,37 @@ class Loader {
           shapeData.push(coords);
         }
 
-        let route = this.list_of_routes.find((r) => r.id === name);
         route.shape = shapeData;
-      });
-    }
+      } catch (e) {
+        route.shape = [];
+      }
+    });
+
+    await Promise.all(tasks);
   }
 
-  // computeWorldGeometry(world) {
-  //   for (const stop of this.list_of_stops) {
-  //     stop.wx = world.mapLon(stop.longitude, this.longMin, this.longMax);
-  //     stop.wy = world.mapLat(stop.latitude, this.latMin, this.latMax);
-  //   }
-  // }
+  computeWorldGeometry(world) {
+    // stops
+    for (const stop of this.list_of_stops) {
+      if (stop.latitude == null || stop.longitude == null) continue;
+      stop.wx = map(stop.longitude, this.longMin, this.longMax, 50, width - 50);
+      stop.wy = map(stop.latitude, this.latMax, this.latMin, 50, height - 50);
+    }
+
+    // routes
+    for (const route of this.list_of_routes) {
+      route.worldShape = [];
+      if (!route.shape || route.shape.length === 0) continue;
+
+      for (const coords of route.shape) {
+        const poly = [];
+        for (const [lat, lon] of coords) {
+          const x = map(lon, this.longMin, this.longMax, 50, width - 50);
+          const y = map(lat, this.latMax, this.latMin, 50, height - 50);
+          poly.push({ x, y });
+        }
+        if (poly.length > 1) route.worldShape.push(poly);
+      }
+    }
+  }
 }

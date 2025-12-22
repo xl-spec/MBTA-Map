@@ -33,10 +33,7 @@ class Vehicle {
   }
 
   setVehicleData(data) {
-    // console.log(data);
     if (!data) return;
-    // console.log("wtf2");
-    // top-level
     this.id = data.id ?? this.id;
     this.type = data.type ?? this.type;
 
@@ -45,9 +42,17 @@ class Vehicle {
 
     // attributes
     this.bearing = attr.bearing ?? this.bearing;
-    this.carriages = Array.isArray(attr.carriages)
-      ? attr.carriages
-      : this.carriages;
+    this.carriages = [];
+
+    for (let i = 0; i < attr.carriages.length; i++) {
+      let newCarriage = new Carriage();
+      newCarriage.label = attr.carriages[i]["label"];
+      newCarriage.occupancy_status = attr.carriages[i]["occupancy_status"];
+      newCarriage.occupancy_percentage =
+        attr.carriages[i]["occupancy_percentage"];
+      this.carriages.push(newCarriage);
+    }
+
     this.current_status = attr.current_status ?? this.current_status;
     this.current_stop_sequence =
       attr.current_stop_sequence ?? this.current_stop_sequence;
@@ -66,18 +71,18 @@ class Vehicle {
     // temp fix for different green line colors... comeback when i refactor everything
     this.relationships_route_id =
       rel.route?.data?.id ?? this.relationships_route_id;
-    if (this.relationships_route_id == "Green-B") {
-      this.relationships_route_id = "#00ff00";
-    }
-    if (this.relationships_route_id == "Green-C") {
-      this.relationships_route_id = "#00c800";
-    }
-    if (this.relationships_route_id == "Green-D") {
-      this.relationships_route_id = "#009600";
-    }
-    if (this.relationships_route_id == "Green-E") {
-      this.relationships_route_id = "#006400";
-    }
+    // if (this.relationships_route_id == "Green-B") {
+    //   this.relationships_route_id = "#00ff00";
+    // }
+    // if (this.relationships_route_id == "Green-C") {
+    //   this.relationships_route_id = "#00c800";
+    // }
+    // if (this.relationships_route_id == "Green-D") {
+    //   this.relationships_route_id = "#009600";
+    // }
+    // if (this.relationships_route_id == "Green-E") {
+    //   this.relationships_route_id = "#006400";
+    // }
 
     this.relationships_stop_id =
       rel.stop?.data?.id ?? this.relationships_stop_id;
@@ -91,7 +96,7 @@ class Vehicle {
     const widthM = 10 * FEET_TO_METERS;
 
     // approximate scale of the world in meters per world-unit
-    const latCenter = 0.5 * (world.latMin + world.latMax);
+    const latCenter = 0.5 * (this.latMin + this.latMax);
 
     // horizontal distance of the whole map at center latitude
     const worldWidthMeters = world.haversineMeters(
@@ -117,22 +122,43 @@ class Vehicle {
     this.h = widthM / metersPerWorldY;
   }
 
-  draw() {
-    // for (let carriage in this.carriages) {
+  setCarriages(world, loader, collider) {}
 
-    // }
+  draw() {
+    // Lead vehicle position (already world-mapped)
     this.x = map(this.longitude, this.longMin, this.longMax, 50, width - 50);
     this.y = map(this.latitude, this.latMax, this.latMin, 50, height - 50);
 
+    // --- draw lead vehicle ---
     push();
     translate(this.x, this.y);
-    // rotate(QUARTER_PI * 2);
-
     fill(this.relationships_route_id);
     rectMode(CENTER);
-    // rect(0, 0, this.w, this.h);
-    rect(0, 0, this.w * 10, this.h * 10);
-
+    rect(0, 0, this.w * 5, this.h * 5);
     pop();
+
+    // for (const c of this.carriages) {
+    //   push();
+    //   translate(c.x, c.y);
+    //   fill(fillColor);
+    //   rectMode(CENTER);
+    //   rect(0, 0, this.w * 40, this.h * 40);
+    //   pop();
+    // }
+  }
+}
+
+class Carriage {
+  constructor() {
+    this.label = "";
+    this.occupancy_status = "";
+    this.occupancy_percentage = "";
+
+    this.latitude = 0;
+    this.longitude = 0;
+    this.x = 0;
+    this.y = 0;
+    this.w = 80;
+    this.h = 10;
   }
 }

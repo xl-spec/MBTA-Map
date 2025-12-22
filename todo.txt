@@ -5,23 +5,24 @@
 @ Add Ons:
 - IO
     - button to get live api update
-    - ui buttons to save settings (done)
 - api live location drawn
 - implement Mapbox GL
-- create vehicle class (done)
 - combine stops, currently unique for every direction
     - might need to do a bunch of math coding ;-;
 - search bar (hard)
     - locates and moves screen position and centers it
     - search for stop
         - use trie for auto complete feature
-
-@ Prettier
-- make ui prettier
-- make polylines smaller
 - make vehicle prettier
     - add # of carts
     - create better algo for direction
+        - match route with vehicle
+        - find lines of intersection, circle around center of train
+        - draw new vehicle at proper intersection
+        - align vehicle so it lines up from one vehicle to next
+
+@ Prettier
+- make ui prettier
 
 @ Bug Fix
 - take out random green line shapes

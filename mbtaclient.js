@@ -19,17 +19,7 @@ class MBTAClient {
   }
 
   getVehicleData() {
+    // console.log("getting all data");
     return this.fetchJSON(`vehicles`);
   }
 }
-
-// async function getRedLinePredictions() {
-//   const resp = await fetch(`${MBTA_PROXY_BASE}/predictions?filter[stop]=70034`);
-//   if (!resp.ok) {
-//     console.error("Proxy error", resp.status);
-//     return;
-//   }
-//   const data = await resp.json();
-//   console.log("Predictions:", data);
-//   // do all your fancy client-side stuff here
-// }

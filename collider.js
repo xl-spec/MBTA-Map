@@ -64,11 +64,12 @@ class Collider {
 
   //   // get vehicle id, match with shape json,
   //   // load out polyline data (or fetch this data cus it's already done)
-  //   // get algo to detech the 2 collisions
+  //   // get algo to detech the 2 collisions (might be more edge cases)
   //   // based on vehicle direction, pick the proper one
-  //   // spawn a new vehicle slightly behind
+  //   // spawn a new vehicle slightly behind on collision
   //   // need to do math and spawn the vehicle data of:
   //   //x, y, w, h, center point, point of intersection, maybe trig idk
+  //   // allign vehicle so it's a line from one carriage to the next
   //   // return {x, y}
   // }
 }

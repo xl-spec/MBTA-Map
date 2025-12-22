@@ -1,5 +1,6 @@
 class InputHandler {
-  constructor() {
+  constructor(world) {
+    this.world = world;
     this.keys = {};
     this.zoomNum = 1;
     this.offset = createVector(0, 0);
@@ -39,11 +40,11 @@ class InputHandler {
   }
 
   screenToWorld(sx, sy) {
-    return world.screenToWorld(sx, sy, this);
+    return this.world.screenToWorld(sx, sy, this);
   }
 
   worldToScreen(wx, wy) {
-    return world.worldToScreen(wx, wy, this);
+    return this.world.worldToScreen(wx, wy, this);
   }
 
   zoomAt(factor, sx = mouseX, sy = mouseY) {
