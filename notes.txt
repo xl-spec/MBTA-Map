@@ -10,9 +10,77 @@ can scale 500x, canvas for now is 1400x800
   //   circle((stop.latitude - latMin) * 500, (stop.longitude - longMin) * 500, 1);
   // }
 
+ -- ROUTE SHAPE --
+ todo:
+    - create folder of new shapes
+    - loop through shape jsons, if there's 2 just pass it
+    - do trains first, everything else is just gonna be done later
+    - decide main routes, pair for each direction
+ Red:
+    shape: 3/8
+    shapeID: canonical-931_0009
+    direction: alewife -> ashmont (dir 0)
+    shape: 6/8
+    shapeID: canonical-933_0009
+    direction: alewife -> braintree (dir 0)
+    shape: 7/8
+    shapeID: canonical-931_0010
+    direction: ashmont -> alewife (dir 1)
+    shape: 8/8
+    shapeID: canonical-933_0010
+    direction: braintree -> alewife (dir 1)
+Mattapan:
+    shape: 2/4
+    shapeID: canonical-899_0008
+    direction: mattapan -> alewife (dir 1)
+    shape: 3/4
+    shapeID: canonical-899_0005
+    direction: alewife -> mattapan (dir 0)
+Orange:
+    shape: 1/7
+    shapeID: canonical-903_0017
+    direction: forest hill -> oak grove (dir 1)
+    shape: 2/7
+    shapeID: canonical-903_0018
+    direction: oak grove -> forest hill (dir 0)
+Green-B:
+    shape: 1/6
+    shapeID: canonical-8000012
+    direction: boston college -> government center (dir 1)
+    shape: 5/6
+    shapeID: canonical-8000013
+    direction: government center -> boston college (dir 0)
+Green-C:
+    shape: 1/6
+    shapeID: canonical-8000005
+    direction: cleveland circle -> government center (dir 1)
+    shape: 5/6
+    shapeID: canonical-8000006
+    direction: government center -> cleveland circle (dir 0)
+Green-D:
+    shape: 1/12
+    shapeID: canonical-8000009
+    direction: riverside -> union square (dir 1)
+    shape: 12/12
+    shapeID: canonical-8000008
+    direction: union square -> riverside (dir 0)
+Green-E:
+    shape: 1/6
+    shapeID: canonical-8000015
+    direction: health street -> medford/tufts (dir 1)
+    shape: 6/6
+    shapeID: canonical-8000018
+    direction: medford/tufts -> health street (dir 0)
+Blue:
+    shape: 4/7
+    shapeID: canonical-946_0014
+    direction: bowdoin -> wonderland (dir 1)
+    shape: 7/7
+    shapeID: canonical-946_0013
+    direction: wonderland -> bowdoin (dir 0)
 
-popupbox:
-stop name
+
+
 
 
 ima round mbta carts to be 10x10x80, HeightxWidthxLength

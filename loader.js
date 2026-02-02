@@ -84,17 +84,23 @@ class Loader {
   async loadShapesAsync() {
     const tasks = this.list_of_routes.map(async (route) => {
       const name = route.id;
-      const file = `data/shapes/mbta_shapes_${name}.json`;
+      // const file = `data/shapes/mbta_shapes_${name}.json`;
+      const file = `data/shapes_filtered/mbta_shapes_${name}.json`;
 
       try {
         const resp = await fetch(file);
-        if (!resp.ok) throw new Error(resp.status);
+
+        // file missing → just skip this route
+        if (!resp.ok) {
+          // optional: console.warn(`No shape file for route ${name}`);
+          return;
+        }
+
         const data = await resp.json();
 
-        const shapeData = [];
-        for (const shape of data.data) {
-          const encoded = shape.attributes.polyline;
-          const coords = polyline.decode(encoded); // decode once
+        for (const i of data.data) {
+          const encoded = i.attributes.polyline;
+          const coords = polyline.decode(encoded);
 
           for (const [lat, lon] of coords) {
             this.latMin = min(this.latMin, lat);
@@ -103,16 +109,80 @@ class Loader {
             this.longMax = max(this.longMax, lon);
           }
 
-          shapeData.push(coords);
-        }
+          // route.addShapes(i.id, coords);
+          const direction_id = i.direction_id ?? null;
+          const line = i.line ?? null;
+          const direction = i.direction ?? null;
 
-        route.shape = shapeData;
-      } catch (e) {
-        route.shape = [];
-      }
+          route.addShapes(i.id, coords, direction_id, line, direction);
+          // console.log(coords);
+        }
+      } catch (err) {}
     });
 
     await Promise.all(tasks);
+  }
+
+  async densifyAllRoutesAsync(stepMeters, world) {
+    for (const route of this.list_of_routes) {
+      // clear previous densified shapes
+      route.customShape = [];
+
+      for (const shapeObj of route.shapes) {
+        const coords = shapeObj.shape; // [[lat, lon], ...]
+        const densified = this.densifyLatLonSimple(coords, stepMeters, world);
+
+        // preserve ALL metadata
+        route.addCustomShapes(
+          shapeObj.shapeID,
+          densified,
+          shapeObj.direction_id ?? null,
+          shapeObj.line ?? null,
+          shapeObj.direction ?? null,
+        );
+      }
+    }
+  }
+
+  densifyLatLonSimple(coords, stepMeters, world) {
+    if (!coords || coords.length < 2) return coords;
+    const out = [];
+    const EPS = 0.01; // meters
+
+    for (let i = 0; i < coords.length - 1; i++) {
+      const [lat0, lon0] = coords[i];
+      const [lat1, lon1] = coords[i + 1];
+
+      // keep segment start (avoid dup)
+      if (out.length === 0) out.push([lat0, lon0]);
+      else {
+        const p = out[out.length - 1];
+        if (world.haversineMeters(p[0], p[1], lat0, lon0) > EPS)
+          out.push([lat0, lon0]);
+      }
+
+      const segLen = world.haversineMeters(lat0, lon0, lat1, lon1);
+      if (segLen <= EPS) continue;
+
+      const n = Math.floor(segLen / stepMeters);
+
+      for (let j = 1; j <= n; j++) {
+        const dist = j * stepMeters;
+        if (dist >= segLen) break;
+        const t = dist / segLen;
+        out.push([lat0 + (lat1 - lat0) * t, lon0 + (lon1 - lon0) * t]);
+      }
+      // console.log("simpl");
+    }
+
+    // keep final endpoint
+    const last = coords[coords.length - 1];
+    const lastOut = out[out.length - 1];
+    if (world.haversineMeters(lastOut[0], lastOut[1], last[0], last[1]) > EPS) {
+      out.push([last[0], last[1]]);
+    }
+
+    return out;
   }
 
   computeWorldGeometry(world) {

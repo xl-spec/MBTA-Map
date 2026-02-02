@@ -53,6 +53,7 @@ class VehicleFleet {
       .then((vehicleResp) => {
         for (let i = 0; i < vehicleResp.data.length; i++) {
           const myVehicle = new Vehicle();
+          // console.log(vehicleResp.data[i]);
           myVehicle.id = vehicleResp.data[i].id;
           myVehicle.calculateTrainDimensions(this.world, this.input);
           myVehicle.latMin = this.loader.latMin;

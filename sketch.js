@@ -3,6 +3,7 @@ let app;
 async function setup() {
   createCanvas(800, 800);
   app = new App();
+  // app = new AppTester();
   await app.setup(); // async init (shapes + vehicles can be awaited)
 }
 

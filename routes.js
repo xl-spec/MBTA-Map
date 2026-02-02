@@ -25,18 +25,53 @@ class Routes {
     this.direction_names = a.direction_names ?? []; // ["South","North"]
     this.direction_destinations = a.direction_destinations ?? []; // ["Ashmont/Braintree","Alewife"]
 
-    // drawing / shapes
-    this.shape = []; // keep if you already depend on it
-    this.drawSize = 1;
+    // this.shapeID = "";
+    // this.shape = [];
+
+    // this.drawSize = 1;
+    this.customShape = [];
+    this.shapes = [];
   }
 
   adjustHexColor() {
     if (this.color == "FFC72C") {
-      this.color == "";
+      this.color = "";
     }
+  }
+
+  addShapes(id, shape, direction_id = null, line = null, direction = null) {
+    this.shapes.push(new Shape(id, shape, direction_id, line, direction));
+  }
+
+  addCustomShapes(
+    id,
+    shape,
+    direction_id = null,
+    line = null,
+    direction = null,
+  ) {
+    this.customShape.push(new Shape(id, shape, direction_id, line, direction));
   }
 
   // getDrawSize() {
   //   pass;
   // }
+}
+
+class Shape {
+  constructor(
+    shapeID,
+    shape, // ill refactor this to be named coordinates later
+    direction_id = null,
+    line = null,
+    direction = null,
+  ) {
+    this.shapeID = shapeID;
+    this.shape = shape;
+    this.drawSize = 1;
+
+    this.direction_id = direction_id; // 0/1
+    this.line = line; // "Green-E"
+    this.direction = direction; // "heath street -> medford/tufts"
+  }
 }

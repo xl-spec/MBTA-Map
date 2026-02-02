@@ -14,8 +14,7 @@ class Vehicle {
     this.longMax = 0; // temp, ill make this more elegant later
 
     this.bearing = 0; // 0 -> 359/360
-    this.carriages = []; // idk if i need to make a class
-    // label, occupancy_status, occupancy_percentage
+    this.carriages = []; // label, occupancy_status, occupancy_percentage
     this.current_status = "";
     this.current_stop_sequence = 0;
     this.direction_id = 0; // bool 0/1
@@ -30,6 +29,10 @@ class Vehicle {
     this.relationships_route_id = ""; //color of vehicle
     this.relationships_stop_id = "";
     this.relationships_trip_id = "";
+    this.color = ""; // do later
+    // this.tester = [];
+    this.closestLatLon = null; // [lat, lon]
+    this.behindLatLon = null; // [lat, lon]
   }
 
   setVehicleData(data) {
@@ -91,19 +94,14 @@ class Vehicle {
   }
 
   calculateTrainDimensions(world) {
-    const FEET_TO_METERS = 0.3048;
-    const lengthM = 80 * FEET_TO_METERS; // along the track
-    const widthM = 10 * FEET_TO_METERS;
-
-    // approximate scale of the world in meters per world-unit
-    const latCenter = 0.5 * (this.latMin + this.latMax);
+    const latCenter = 0.5 * (world.latMin + world.latMax);
 
     // horizontal distance of the whole map at center latitude
     const worldWidthMeters = world.haversineMeters(
       latCenter,
       world.longMin,
       latCenter,
-      world.longMax
+      world.longMax,
     );
 
     // vertical distance of the whole map at some longitude
@@ -111,40 +109,84 @@ class Vehicle {
       world.latMin,
       world.longMin,
       world.latMax,
-      world.longMin
+      world.longMin,
     );
 
     const metersPerWorldX = worldWidthMeters / world.w;
     const metersPerWorldY = worldHeightMeters / world.h;
 
-    // final world-space rectangle size (before zoom)
-    this.w = lengthM / metersPerWorldX;
-    this.h = widthM / metersPerWorldY;
+    const FEET_TO_METERS = 0.3048;
+    this.w = (80 * FEET_TO_METERS) / metersPerWorldX;
+    this.h = (10 * FEET_TO_METERS) / metersPerWorldY;
   }
 
-  setCarriages(world, loader, collider) {}
+  setCarriages(world, loader, collider) {
+    let temp_latitude = this.latitude;
+    let temp_longitude = this.longitude;
+
+    let routeId = this.routeId || this.relationships_route_id;
+    let route = loader.getRouteById(routeId);
+    if (!route?.customShape?.length) return;
+
+    let taken_shape = null; // fix this later, idk why vehicle doesnt show which destination
+    for (const s of route.customShape) {
+      if (s.direction_id === this.direction_id) {
+        taken_shape = s.shape;
+        break;
+      }
+    }
+    if (!taken_shape) return;
+    console.log();
+    for (let i = 0; i < this.carriages.length; i++) {
+      const res = collider.closestPointAndBehind(
+        taken_shape,
+        temp_longitude,
+        temp_latitude,
+        world,
+        90,
+      );
+
+      if (!res) break;
+      // console.log(res);
+      this.carriages[i].latitude = res.closest[0];
+      this.carriages[i].longitude = res.closest[1];
+
+      temp_latitude = res.behind[0];
+      temp_longitude = res.behind[1];
+    }
+  }
 
   draw() {
     // Lead vehicle position (already world-mapped)
     this.x = map(this.longitude, this.longMin, this.longMax, 50, width - 50);
     this.y = map(this.latitude, this.latMax, this.latMin, 50, height - 50);
-
     // --- draw lead vehicle ---
     push();
     translate(this.x, this.y);
+    // console.log(String(this.longitude) + " " + String(this.latitude));
     fill(this.relationships_route_id);
     rectMode(CENTER);
-    rect(0, 0, this.w * 5, this.h * 5);
-    pop();
+    // rect(0, 0, this.w * 5, this.h * 5);
+    rect(0, 0, this.w, this.h);
 
-    // for (const c of this.carriages) {
-    //   push();
-    //   translate(c.x, c.y);
-    //   fill(fillColor);
-    //   rectMode(CENTER);
-    //   rect(0, 0, this.w * 40, this.h * 40);
-    //   pop();
-    // }
+    // stroke(this.relationships_route_id);
+    // noFill();
+    // circle(0, 0, this.w * 2.1);
+    pop();
+    let circle_size = 0.2;
+    for (const c of this.carriages) {
+      c.x = map(c.longitude, this.longMin, this.longMax, 50, width - 50);
+      c.y = map(c.latitude, this.latMax, this.latMin, 50, height - 50);
+      push();
+      translate(c.x, c.y);
+      // fill(fillColor);
+      fill(0, 0, 100, 30);
+      rectMode(CENTER);
+      // rect(0, 0, this.w, this.h);
+      circle(0, 0, circle_size);
+      pop();
+      circle_size *= 1.4;
+    }
   }
 }
 

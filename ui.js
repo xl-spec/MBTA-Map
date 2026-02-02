@@ -3,7 +3,7 @@ class UserInterface {
     this.fps = new FPS(20, 30);
     this.saveState = new SaveState(700, 20, input);
     this.scaleBar = new ScaleBar(650, 700, input, world, 100);
-    this.centerPoint = new CenterPoint(input, world, 4);
+    this.centerPoint = new CenterPoint(input, world, 2);
   }
 
   draw() {
@@ -67,7 +67,7 @@ class ScaleBar {
       this.y,
       this.x + this.width,
       this.y,
-      this.input
+      this.input,
     );
   }
 
@@ -78,7 +78,7 @@ class ScaleBar {
     text(
       this.referenceNumber.toFixed(10) + " miles",
       this.x + this.width / 2,
-      this.y - 5
+      this.y - 5,
     );
   }
 }
@@ -98,8 +98,18 @@ class CenterPoint {
     const cy = height / 2;
 
     const info = this.world.screenToLatLon(cx, cy, this.input);
-    this.longAndLat = `${info.lat.toFixed(6)}, ${info.lon.toFixed(6)}`;
+    this.longAndLat = `${info.lat.toFixed(8)}, ${info.lon.toFixed(8)}`;
     return this.longAndLat;
+  }
+
+  getXandY(cx, cy) {
+    // Convert screen center -> world coordinates using your camera transform.
+    // This matches applyTransform(): translate(offset) then scale(zoom).
+    const wx = (cx - this.input.offset.x) / this.input.zoomNum;
+    const wy = (cy - this.input.offset.y) / this.input.zoomNum;
+
+    this.xy = `${wx.toFixed(6)}, ${wy.toFixed(6)}`;
+    return this.xy;
   }
 
   draw() {
@@ -108,6 +118,10 @@ class CenterPoint {
 
     circle(cx, cy, this.size);
     textAlign(CENTER);
-    text(this.getLongAndLat(), cx, cy);
+    const line1 = this.getLongAndLat(cx, cy);
+    const line2 = this.getXandY(cx, cy);
+
+    text(line1, cx, cy - 8);
+    text(line2, cx, cy + 10);
   }
 }

@@ -1,8 +1,8 @@
 class App {
   constructor() {
     this.mymap = new Map();
-    this.loader = new Loader();
     this.world = new World();
+    this.loader = new Loader();
     this.inputHandler = new InputHandler(this.world);
     this.mbtaclient = new MBTAClient();
     this.collider = new Collider(this.inputHandler, this.world);
@@ -11,34 +11,29 @@ class App {
       this.world,
       this.inputHandler,
       this.loader,
-      this.collider
+      this.collider,
     );
     this.popupbox = new PopUpBox(this.mbtaclient);
     this.ui = new UserInterface(this.inputHandler, this.world);
 
     this.ready = false;
+
+    this.count = 1;
+    this.count2 = 0;
   }
 
-  // --- async setup, but preserves your setup logic ---
   async setup() {
-    // Your old preload() content:
     await this.loader.preloadData();
 
-    // Your old setup() content:
     this.loader.loadStops(this.loader.stopsData);
     this.loader.loadRoutes(this.loader.routesData);
 
-    // KEEP async calls, but do not change your usage
-    // If you implement loader.loadShapesAsync(), we await it.
-    // If you haven't implemented it yet, we fallback to loader.loadShapes() and continue (same as before).
-    if (typeof this.loader.loadShapesAsync === "function") {
-      await this.loader.loadShapesAsync();
-    } else {
-      this.loader.loadShapes();
-    }
+    await this.loader.loadShapesAsync();
+    await this.loader.densifyAllRoutesAsync(10, this.world);
 
     this.world.getLocalMinMax(this.loader);
     this.world.setScreenBounds(50, 50, width - 100, height - 100);
+    this.loader.computeWorldGeometry(this.world);
 
     // temp fix
     this.vehicleFleet.latMax = this.loader.latMax;
@@ -48,17 +43,44 @@ class App {
 
     /////////////
     /////temp, for button later
+
     if (typeof this.vehicleFleet.setAllVehicleDataAsync === "function") {
       await this.vehicleFleet.setAllVehicleDataAsync();
     } else {
-      // your original call
-      // NOTE: if setAllVehicleData is async already, awaiting it is safe
       const maybePromise = this.vehicleFleet.setAllVehicleData();
       if (maybePromise && typeof maybePromise.then === "function")
         await maybePromise;
     }
 
     this.ready = true;
+
+    // for (const route of this.loader.list_of_routes) {
+    //   console.log("?");
+    // }
+
+    for (const route of this.loader.list_of_routes) {
+      //   if (!route.shape || route.shape.length === 0) continue;
+      stroke(`#${route.color || "999999"}`);
+      if (
+        route.color != "FFC72C" && // temp, no buses, ferries, and commuter
+        route.color != "008EAA" &&
+        route.color != "80276C"
+      ) {
+        console.log(route.id);
+      }
+    }
+    for (const route of this.loader.list_of_routes) {
+      if (!route.shape || route.shape.length === 0) continue;
+      stroke(`#${route.color || "999999"}`);
+      if (route.id == "Green-E") {
+        // console.log(route.shape);
+        for (const shapeObj of route.shapes) {
+          const coords = shapeObj.shape;
+          //   console.log(coords[0]);
+        }
+      }
+    }
+    //   let routeLen = this.loader.list_of_routes.length;
   }
 
   draw() {
@@ -73,23 +95,22 @@ class App {
     fill(0);
     noStroke();
 
-    // KEEP: vehicleFleet.setAllVehicleData(); is commented out in your original
     this.inputHandler.applyKeyZoomAtMouse();
     this.inputHandler.applyTransform();
 
     for (const route of this.loader.list_of_routes) {
-      if (!route.shape || route.shape.length === 0) continue;
-
       stroke(`#${route.color || "999999"}`);
       if (
         route.color != "FFC72C" && // temp, no buses, ferries, and commuter
         route.color != "008EAA" &&
         route.color != "80276C"
       ) {
+        // if (route.id == "Mattapan") {
         noFill();
-        strokeWeight(2 / this.inputHandler.zoomNum);
-
-        for (let coords of route.shape) {
+        strokeWeight(0.5 / this.inputHandler.zoomNum);
+        for (const shapeObj of route.customShape) {
+          // for (const shapeObj of route.shapes) {
+          const coords = shapeObj.shape;
           beginShape();
           for (const [lat, lon] of coords) {
             let x = map(
@@ -97,16 +118,17 @@ class App {
               this.loader.longMin,
               this.loader.longMax,
               50,
-              width - 50
+              width - 50,
             );
             let y = map(
               lat,
               this.loader.latMax,
               this.loader.latMin,
               50,
-              height - 50
+              height - 50,
             );
             vertex(x, y);
+            circle(x, y, 0.1);
           }
           endShape();
         }
@@ -116,7 +138,7 @@ class App {
     fill(0);
     noStroke();
 
-    // load stops (circles) (unchanged)
+    // stops
     for (let stop of this.loader.list_of_stops) {
       if (stop.vehicle_type == 0 || stop.vehicle_type == 1) {
         stop.x = map(
@@ -124,14 +146,14 @@ class App {
           this.loader.longMin,
           this.loader.longMax,
           50,
-          width - 50
+          width - 50,
         );
         stop.y = map(
           stop.latitude,
           this.loader.latMax,
           this.loader.latMin,
           50,
-          height - 50
+          height - 50,
         );
 
         circle(stop.x, stop.y, stop.circleSize);

@@ -1,19 +1,23 @@
 @ Optimizations:
 - possibly speed up loadShapes
 - make sketch less messy/refactor draw or have a fleet idk
+- kd-tree implementation for customShape data routes
 
 @ Add Ons:
 - IO
-    - button to get live api update
-- api live location drawn
-- implement Mapbox GL
-- combine stops, currently unique for every direction
-    - might need to do a bunch of math coding ;-;
-- search bar (hard)
+    - button to get live location api update
+- Mapbox/Map overlay
+- Stops
+    - combine stops, currently unique for every direction
+        - might need to do a bunch of math coding
+    - add long/lat info on sheet
+    - make sheet readable
+    - fix static placement on world
+- Search Bar
     - locates and moves screen position and centers it
     - search for stop
         - use trie for auto complete feature
-- make vehicle prettier
+- Vehicle
     - add # of carts
     - create better algo for direction
         - match route with vehicle
@@ -21,9 +25,10 @@
         - draw new vehicle at proper intersection
         - align vehicle so it lines up from one vehicle to next
 
+
 @ Prettier
 - make ui prettier
 
 @ Bug Fix
-- take out random green line shapes
+- take out random green line shapes (done)
 - buttons overlap, does all actions on point
