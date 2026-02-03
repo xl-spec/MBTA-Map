@@ -129,7 +129,7 @@ class Loader {
       route.customShape = [];
 
       for (const shapeObj of route.shapes) {
-        const coords = shapeObj.shape; // [[lat, lon], ...]
+        const coords = shapeObj.coordinates; // [[lat, lon], ...]
         const densified = this.densifyLatLonSimple(coords, stepMeters, world);
 
         // preserve ALL metadata
@@ -196,9 +196,10 @@ class Loader {
     // routes
     for (const route of this.list_of_routes) {
       route.worldShape = [];
-      if (!route.shape || route.shape.length === 0) continue;
+      if (!route.customShape || route.customShape.length === 0) continue;
 
-      for (const coords of route.shape) {
+      for (const shapeObj of route.customShape) {
+        const coords = shapeObj.coordinates;
         const poly = [];
         for (const [lat, lon] of coords) {
           const x = map(lon, this.longMin, this.longMax, 50, width - 50);

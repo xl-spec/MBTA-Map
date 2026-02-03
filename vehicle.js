@@ -93,10 +93,9 @@ class Vehicle {
       rel.trip?.data?.id ?? this.relationships_trip_id;
   }
 
-  calculateTrainDimensions(world) {
+  computeWorldDimensionsFromFeet(widthFeet, heightFeet, world) {
     const latCenter = 0.5 * (world.latMin + world.latMax);
 
-    // horizontal distance of the whole map at center latitude
     const worldWidthMeters = world.haversineMeters(
       latCenter,
       world.longMin,
@@ -104,7 +103,6 @@ class Vehicle {
       world.longMax,
     );
 
-    // vertical distance of the whole map at some longitude
     const worldHeightMeters = world.haversineMeters(
       world.latMin,
       world.longMin,
@@ -116,8 +114,18 @@ class Vehicle {
     const metersPerWorldY = worldHeightMeters / world.h;
 
     const FEET_TO_METERS = 0.3048;
-    this.w = (80 * FEET_TO_METERS) / metersPerWorldX;
-    this.h = (10 * FEET_TO_METERS) / metersPerWorldY;
+
+    return {
+      w: (widthFeet * FEET_TO_METERS) / metersPerWorldX,
+      h: (heightFeet * FEET_TO_METERS) / metersPerWorldY,
+    };
+  }
+
+  calculateTrainDimensions(world) {
+    const dims = this.computeWorldDimensionsFromFeet(80, 10, world);
+    // console.log(this.computeWorldDimensionsFromFeet(90, 90, world));
+    this.w = dims.w;
+    this.h = dims.h;
   }
 
   setCarriages(world, loader, collider) {
@@ -131,21 +139,22 @@ class Vehicle {
     let taken_shape = null; // fix this later, idk why vehicle doesnt show which destination
     for (const s of route.customShape) {
       if (s.direction_id === this.direction_id) {
-        taken_shape = s.shape;
+        taken_shape = s.coordinates;
         break;
       }
     }
-    if (!taken_shape) return;
-    console.log();
+    // console.log(this.carriages.length);
+    // console.log(this.carriages);
+    // console.log(taken_shape);
     for (let i = 0; i < this.carriages.length; i++) {
       const res = collider.closestPointAndBehind(
         taken_shape,
         temp_longitude,
         temp_latitude,
         world,
-        90,
+        0.15,
       );
-
+      // console.log(res);
       if (!res) break;
       // console.log(res);
       this.carriages[i].latitude = res.closest[0];
@@ -154,6 +163,12 @@ class Vehicle {
       temp_latitude = res.behind[0];
       temp_longitude = res.behind[1];
     }
+    // console.log("-");
+    // console.log(this.carriages);
+    // console.log("------------");
+    // for (let c in this.carriages) {
+    //   console.log(c.);
+    // }
   }
 
   draw() {
@@ -167,13 +182,14 @@ class Vehicle {
     fill(this.relationships_route_id);
     rectMode(CENTER);
     // rect(0, 0, this.w * 5, this.h * 5);
+    // console.log(this.w);
     rect(0, 0, this.w, this.h);
 
     // stroke(this.relationships_route_id);
     // noFill();
     // circle(0, 0, this.w * 2.1);
     pop();
-    let circle_size = 0.2;
+    let circle_size = 0.15;
     for (const c of this.carriages) {
       c.x = map(c.longitude, this.longMin, this.longMax, 50, width - 50);
       c.y = map(c.latitude, this.latMax, this.latMin, 50, height - 50);
@@ -185,7 +201,7 @@ class Vehicle {
       // rect(0, 0, this.w, this.h);
       circle(0, 0, circle_size);
       pop();
-      circle_size *= 1.4;
+      // circle_size *= 1.7;
     }
   }
 }

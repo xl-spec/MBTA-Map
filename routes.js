@@ -39,18 +39,26 @@ class Routes {
     }
   }
 
-  addShapes(id, shape, direction_id = null, line = null, direction = null) {
-    this.shapes.push(new Shape(id, shape, direction_id, line, direction));
-  }
-
-  addCustomShapes(
+  addShapes(
     id,
-    shape,
+    coordinates,
     direction_id = null,
     line = null,
     direction = null,
   ) {
-    this.customShape.push(new Shape(id, shape, direction_id, line, direction));
+    this.shapes.push(new Shape(id, coordinates, direction_id, line, direction));
+  }
+
+  addCustomShapes(
+    id,
+    coordinates,
+    direction_id = null,
+    line = null,
+    direction = null,
+  ) {
+    this.customShape.push(
+      new Shape(id, coordinates, direction_id, line, direction),
+    );
   }
 
   // getDrawSize() {
@@ -61,13 +69,13 @@ class Routes {
 class Shape {
   constructor(
     shapeID,
-    shape, // ill refactor this to be named coordinates later
+    coordinates, // ill refactor this to be named coordinates later
     direction_id = null,
     line = null,
     direction = null,
   ) {
     this.shapeID = shapeID;
-    this.shape = shape;
+    this.coordinates = coordinates;
     this.drawSize = 1;
 
     this.direction_id = direction_id; // 0/1

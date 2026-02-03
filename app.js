@@ -70,12 +70,12 @@ class App {
       }
     }
     for (const route of this.loader.list_of_routes) {
-      if (!route.shape || route.shape.length === 0) continue;
+      if (!route.coordinates || route.coordinates.length === 0) continue;
       stroke(`#${route.color || "999999"}`);
       if (route.id == "Green-E") {
         // console.log(route.shape);
         for (const shapeObj of route.shapes) {
-          const coords = shapeObj.shape;
+          const coords = shapeObj.coordinates;
           //   console.log(coords[0]);
         }
       }
@@ -110,7 +110,7 @@ class App {
         strokeWeight(0.5 / this.inputHandler.zoomNum);
         for (const shapeObj of route.customShape) {
           // for (const shapeObj of route.shapes) {
-          const coords = shapeObj.shape;
+          const coords = shapeObj.coordinates;
           beginShape();
           for (const [lat, lon] of coords) {
             let x = map(
