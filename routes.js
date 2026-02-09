@@ -69,7 +69,7 @@ class Routes {
 class Shape {
   constructor(
     shapeID,
-    coordinates, // ill refactor this to be named coordinates later
+    coordinates,
     direction_id = null,
     line = null,
     direction = null,

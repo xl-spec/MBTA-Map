@@ -143,9 +143,10 @@ class Vehicle {
         break;
       }
     }
+
     // console.log(this.carriages.length);
     // console.log(this.carriages);
-    // console.log(taken_shape);
+    console.log(taken_shape);
     for (let i = 0; i < this.carriages.length; i++) {
       const res = collider.closestPointAndBehind(
         taken_shape,
@@ -159,49 +160,45 @@ class Vehicle {
       // console.log(res);
       this.carriages[i].latitude = res.closest[0];
       this.carriages[i].longitude = res.closest[1];
+      // console.log(res);
+
+      const ux = res.slopeWorld[0];
+      const uy = res.slopeWorld[1];
+
+      this.carriages[i].radian = Math.atan2(uy, ux);
+      console.log(this.carriages[i].radian);
 
       temp_latitude = res.behind[0];
       temp_longitude = res.behind[1];
     }
-    // console.log("-");
-    // console.log(this.carriages);
-    // console.log("------------");
-    // for (let c in this.carriages) {
-    //   console.log(c.);
-    // }
   }
 
   draw() {
-    // Lead vehicle position (already world-mapped)
     this.x = map(this.longitude, this.longMin, this.longMax, 50, width - 50);
     this.y = map(this.latitude, this.latMax, this.latMin, 50, height - 50);
-    // --- draw lead vehicle ---
-    push();
-    translate(this.x, this.y);
-    // console.log(String(this.longitude) + " " + String(this.latitude));
-    fill(this.relationships_route_id);
-    rectMode(CENTER);
-    // rect(0, 0, this.w * 5, this.h * 5);
-    // console.log(this.w);
-    rect(0, 0, this.w, this.h);
 
-    // stroke(this.relationships_route_id);
-    // noFill();
-    // circle(0, 0, this.w * 2.1);
-    pop();
-    let circle_size = 0.15;
+    // push();
+    // translate(this.x, this.y);
+    // fill(this.relationships_route_id);
+    // rectMode(CENTER);
+    // rect(0, 0, this.w, this.h);
+
+    // pop();
     for (const c of this.carriages) {
+      // if (c === this.carriages[0]) {
+      //   continue;
+      // }
       c.x = map(c.longitude, this.longMin, this.longMax, 50, width - 50);
       c.y = map(c.latitude, this.latMax, this.latMin, 50, height - 50);
       push();
       translate(c.x, c.y);
-      // fill(fillColor);
-      fill(0, 0, 100, 30);
+
       rectMode(CENTER);
-      // rect(0, 0, this.w, this.h);
-      circle(0, 0, circle_size);
+      rotate(c.radian);
+      fill(this.relationships_route_id);
+      rect(0, 0, this.w, this.h);
+
       pop();
-      // circle_size *= 1.7;
     }
   }
 }
@@ -218,5 +215,6 @@ class Carriage {
     this.y = 0;
     this.w = 80;
     this.h = 10;
+    this.radian = 0;
   }
 }
