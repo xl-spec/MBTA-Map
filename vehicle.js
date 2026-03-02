@@ -74,18 +74,19 @@ class Vehicle {
     // temp fix for different green line colors... comeback when i refactor everything
     this.relationships_route_id =
       rel.route?.data?.id ?? this.relationships_route_id;
-    // if (this.relationships_route_id == "Green-B") {
-    //   this.relationships_route_id = "#00ff00";
-    // }
-    // if (this.relationships_route_id == "Green-C") {
-    //   this.relationships_route_id = "#00c800";
-    // }
-    // if (this.relationships_route_id == "Green-D") {
-    //   this.relationships_route_id = "#009600";
-    // }
-    // if (this.relationships_route_id == "Green-E") {
-    //   this.relationships_route_id = "#006400";
-    // }
+    this.color = this.relationships_route_id;
+    if (this.relationships_route_id == "Green-B") {
+      this.color = "#00ff00";
+    }
+    if (this.relationships_route_id == "Green-C") {
+      this.color = "#00c800";
+    }
+    if (this.relationships_route_id == "Green-D") {
+      this.color = "#009600";
+    }
+    if (this.relationships_route_id == "Green-E") {
+      this.color = "#006400";
+    }
 
     this.relationships_stop_id =
       rel.stop?.data?.id ?? this.relationships_stop_id;
@@ -146,7 +147,7 @@ class Vehicle {
 
     // console.log(this.carriages.length);
     // console.log(this.carriages);
-    console.log(taken_shape);
+    // console.log(taken_shape);
     for (let i = 0; i < this.carriages.length; i++) {
       const res = collider.closestPointAndBehind(
         taken_shape,
@@ -160,13 +161,11 @@ class Vehicle {
       // console.log(res);
       this.carriages[i].latitude = res.closest[0];
       this.carriages[i].longitude = res.closest[1];
-      // console.log(res);
 
       const ux = res.slopeWorld[0];
       const uy = res.slopeWorld[1];
 
       this.carriages[i].radian = Math.atan2(uy, ux);
-      console.log(this.carriages[i].radian);
 
       temp_latitude = res.behind[0];
       temp_longitude = res.behind[1];
@@ -195,7 +194,7 @@ class Vehicle {
 
       rectMode(CENTER);
       rotate(c.radian);
-      fill(this.relationships_route_id);
+      fill(this.color);
       rect(0, 0, this.w, this.h);
 
       pop();

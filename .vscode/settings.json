@@ -1,3 +1,4 @@
 {
-  "editor.showUnused": true
+  "editor.showUnused": true,
+  "liveServer.settings.port": 5501
 }

@@ -17,9 +17,6 @@ class App {
     this.ui = new UserInterface(this.inputHandler, this.world);
 
     this.ready = false;
-
-    this.count = 1;
-    this.count2 = 0;
   }
 
   async setup() {
@@ -128,7 +125,7 @@ class App {
               height - 50,
             );
             vertex(x, y);
-            circle(x, y, 0.1);
+            // circle(x, y, 0.1);
           }
           endShape();
         }

@@ -1,29 +1,28 @@
 @ Optimizations:
-- possibly speed up loadShapes
-- make sketch less messy/refactor draw or have a fleet idk
-- kd-tree implementation for customShape data routes
+- kd-tree implementation for coordinate data routes
 
 @ Add Ons:
 - IO
-    - button to get live location api update
+    - button to get live location api update (easy)
 - Mapbox/Map overlay
+    - port a project directly ontop of map
 - Stops
-    - combine stops, currently unique for every direction
+    - combine stops, currently unique for every direction (medium)
         - might need to do a bunch of math coding
-    - add long/lat info on sheet
-    - make sheet readable
+    - add long/lat info on sheet (easy)
+    - make sheet readable (medium)
     - fix static placement on world
 - Search Bar
-    - locates and moves screen position and centers it
-    - search for stop
+    - locates and moves screen position and centers it (medium)
+    - search for stop (hard)
         - use trie for auto complete feature
-- Vehicle
-    - add # of carts
-    - create better algo for direction
-        - match route with vehicle
-        - find lines of intersection, circle around center of train
-        - draw new vehicle at proper intersection
-        - align vehicle so it lines up from one vehicle to next
+- 3D
+    - geotiff data (medium)
+        - clean/crop
+        - transfer into project
+    - load project with webgl (medium)
+    - find z axis for all stations
+
 
 
 @ Prettier
